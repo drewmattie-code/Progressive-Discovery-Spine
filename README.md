@@ -7,6 +7,7 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/spec-CC_BY_4.0-blue?style=flat-square)](LICENSE-CC-BY-4.0)
 [![License: MIT](https://img.shields.io/badge/code-MIT-green?style=flat-square)](LICENSE-MIT)
 [![Status: v1.0](https://img.shields.io/badge/status-v1.0-0F766E?style=flat-square)](SPEC.md)
+[![Claude Skill](https://img.shields.io/badge/claude--skill-available-7C3AED?style=flat-square)](dist/skills/pds/SKILL.md)
 
 </div>
 
@@ -133,6 +134,20 @@ See [SPEC.md](SPEC.md#build-sequence) for details.
 - Not a library you install. It's an architectural pattern with reference SLAs and examples.
 - Not a replacement for MCP. It sits **on top of** MCP and fills the gaps the protocol leaves open.
 - Not vendor-specific. The pattern applies whether your backends are ERP, CRM, custom APIs, internal databases, or all of the above.
+
+## Use it with Claude (or any AI coding agent)
+
+PDS ships with a [Claude Code skill](dist/skills/pds/SKILL.md) that turns the spec into an active architectural consultant inside your AI coding session. Install:
+
+```bash
+mkdir -p ~/.claude/skills/pds
+curl -fsSL https://raw.githubusercontent.com/drewmattie-code/pds/main/dist/skills/pds/SKILL.md \
+  -o ~/.claude/skills/pds/SKILL.md
+```
+
+After install, the skill auto-activates whenever you ask Claude about MCP at scale, tool catalog management, agent-to-enterprise integration, or any of the other triggering contexts. It diagnoses which of the four documented failure modes you're hitting and recommends which of the 10 principles to apply.
+
+Works in Claude Code natively. The SKILL.md format is portable — drop it into Cursor, Codex, or any agent that supports the convention. See [`dist/skills/README.md`](dist/skills/README.md) for client-specific install paths.
 
 ## Examples
 
