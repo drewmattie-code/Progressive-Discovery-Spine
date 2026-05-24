@@ -145,6 +145,6 @@ PDS principles apply differently depending on where the user is:
 
 ## Attribution
 
-Progressive Discovery Spine specification by Drew Mattie (Charles & Roe Inc., 2026), CC BY 4.0.
+Progressive Discovery Spine specification by Drew Mattie, SaaSquach AI Labs (a division of Charles & Roe Inc.), 2026. CC BY 4.0.
 Spec: https://github.com/drewmattie-code/Progressive-Discovery-Spine
 SPEC: https://github.com/drewmattie-code/Progressive-Discovery-Spine/blob/main/SPEC.md

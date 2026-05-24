@@ -42,4 +42,4 @@ When the spec evolves, the skill evolves with it. Watch this repo (or the [CHANG
 
 ## Attribution
 
-Progressive Discovery Spine by Drew Mattie · Charles & Roe Inc. · CC BY 4.0
+Progressive Discovery Spine by Drew Mattie · SaaSquach AI Labs (a division of Charles & Roe Inc.) · CC BY 4.0

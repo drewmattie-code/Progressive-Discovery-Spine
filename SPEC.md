@@ -333,6 +333,6 @@ This specification follows semantic versioning. Breaking changes to the conceptu
 
 ## 10. Author
 
-[Drew Mattie](https://www.linkedin.com/in/drew-mattie-88084826/) · Charles & Roe Inc. · 2026
+[Drew Mattie](https://www.linkedin.com/in/drew-mattie-88084826/) · SaaSquach AI Labs (a division of Charles & Roe Inc.) · 2026
 
-PDS was coined and developed at Charles & Roe Inc. as the architectural foundation for AI products operating against enterprise systems at scale. This specification is released as open documentation under [CC BY 4.0](LICENSE-CC-BY-4.0) so the pattern can be adopted, adapted, and built upon — with attribution.
+PDS was coined and developed at SaaSquach AI Labs (a division of Charles & Roe Inc.) as the architectural foundation for AI products operating against enterprise systems at scale. This specification is released as open documentation under [CC BY 4.0](LICENSE-CC-BY-4.0) so the pattern can be adopted, adapted, and built upon — with attribution.

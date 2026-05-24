@@ -176,4 +176,4 @@ See [LICENSE](LICENSE) for the summary.
 
 ## Author
 
-[Drew Mattie](https://www.linkedin.com/in/drew-mattie-88084826/) · Charles & Roe Inc. · 2026
+[Drew Mattie](https://www.linkedin.com/in/drew-mattie-88084826/) · SaaSquach AI Labs (a division of Charles & Roe Inc.) · 2026

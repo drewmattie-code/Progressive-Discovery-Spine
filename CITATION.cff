@@ -5,7 +5,7 @@ type: software
 authors:
   - given-names: Drew
     family-names: Mattie
-    affiliation: Charles & Roe Inc.
+    affiliation: "SaaSquach AI Labs (a division of Charles & Roe Inc.)"
 repository-code: "https://github.com/drewmattie-code/Progressive-Discovery-Spine"
 url: "https://github.com/drewmattie-code/Progressive-Discovery-Spine"
 license:
