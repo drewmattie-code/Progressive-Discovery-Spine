@@ -16,7 +16,7 @@
 
 PDS is a pattern for the layer that sits **between your AI agents and your backend systems**.
 
-Most production AI integrations today expose tools directly to the model — a hundred MCP tools, a thousand database functions, every CRM endpoint. At pilot scale, it works. At customer 3, it breaks: context window saturates before reasoning begins, the model hallucinates wrong tools, observability is missing, and tenant isolation is an afterthought.
+Most production AI integrations today expose tools directly to the model — a hundred MCP tools, a thousand database functions, every CRM endpoint. At prototype scale, against one schema with toy data, it works. The moment it hits real enterprise data volumes — millions of records, hundreds of tables, multiple backend systems wired together — it breaks: context window saturates before reasoning begins, the model hallucinates wrong tools, observability is missing, and isolation between data domains is an afterthought.
 
 PDS is the discipline that fixes this. Instead of exposing every backend tool to every agent, the spine:
 
@@ -26,7 +26,7 @@ PDS is the discipline that fixes this. Instead of exposing every backend tool to
 - Enforces **tenant isolation** at the protocol layer, not the application layer
 - Annotates each tool with **SLA metadata** so agent planners can route intelligently
 
-The result: the same architecture serves customer 1 and customer 300. No re-platforming.
+The result: the same architecture serves a single-schema prototype and a multi-system enterprise deployment handling millions of records across hundreds of tools — whether the integration target is your own internal data estate or a customer's or supplier's. No re-platforming.
 
 ## Why it exists
 
@@ -105,7 +105,7 @@ Full discussion of each principle, with problems, patterns, and implementation n
 
 ## Reference build sequence
 
-PDS is an eight-week build from skeleton to first reference customer:
+PDS is an eight-week build from skeleton to first production reference deployment:
 
 | Week | Deliverable |
 |---|---|
@@ -115,16 +115,17 @@ PDS is an eight-week build from skeleton to first reference customer:
 | 4 | Workflow-scoped packages · second and third agent consumers |
 | 5 | Second connector (different backend), proving cross-system semantic-tool abstraction |
 | 6 | SLA metadata · failure-mode descriptions · circuit breaker · production-ready |
-| 7 | First customer reference deployment |
+| 7 | First end-to-end production reference deployment |
 | 8 | Spec / one-pager / investor materials |
 
 See [SPEC.md](SPEC.md#build-sequence) for details.
 
 ## Who this is for
 
-- **Founders and CTOs** scaling AI products past pilot — when "it worked for customer 1" stops being a strategy
-- **Enterprise architects** evaluating MCP for production rollout — this is the missing layer
-- **AI engineers** building agent systems against enterprise data — the discipline that lets your agents stay coherent at 100+ tools
+- **Enterprise platform teams** wiring AI agents into their own ERP / CRM / data warehouse / lakehouse — when the prototype that worked on one schema chokes on the full production catalog
+- **B2B integration teams** building agent-driven workflows across customer or supplier data — when one connector becomes ten and tool catalogs explode
+- **Enterprise architects and CTOs** evaluating MCP for production rollout — this is the missing layer above the protocol
+- **AI engineers** building agent systems against high-volume enterprise data — the discipline that keeps agents coherent at 100+ tools and millions of records
 - **Buyers** of AI vendors — the questions to ask vendors who claim to scale ("Do you progressively discover tools? Is there a gateway? Where's tenant isolation enforced?")
 
 ## What this is not

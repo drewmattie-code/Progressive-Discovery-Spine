@@ -284,7 +284,7 @@ PDS is an eight-week build from skeleton to first reference deployment. The cade
 | 4 | Workflow-scoped packages · second and third agent consumers | Forces the pack abstraction to be real |
 | 5 | Second connector (different backend) | Proves cross-system semantic-tool abstraction |
 | 6 | SLA metadata · failure-mode descriptions · circuit breaker | Production-readiness |
-| 7 | First customer reference deployment | Business outcome |
+| 7 | First end-to-end production reference deployment | Business outcome |
 | 8 | Spec / one-pager / case study | Compounds future customer acquisition |
 
 ---
