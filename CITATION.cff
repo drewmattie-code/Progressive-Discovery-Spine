@@ -20,7 +20,7 @@ abstract: >
   context bloat, hallucinated tool selection, missing production controls
   (retries / backpressure / observability / audit), and discovery
   anti-patterns. The pattern is defined as ten principles plus reference
-  SLAs and an eight-week build sequence.
+  SLAs and a numbered build sequence.
 keywords:
   - mcp
   - model-context-protocol

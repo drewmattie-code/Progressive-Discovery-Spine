@@ -274,9 +274,9 @@ This is the user-facing manifestation of progressive discovery. Instead of expos
 
 ## 5. Build sequence
 
-PDS is an eight-week build from skeleton to first reference deployment. The cadence below assumes a small team (1–3 engineers) focused on the spine.
+PDS is built in the following sequence from skeleton to first reference deployment. Each step depends on the previous one. Pace varies by team and tooling; the sequence does not.
 
-| Week | Deliverable | Why |
+| Step | Deliverable | Why |
 |---|---|---|
 | 1 | Tool manifest format · `search_tools` over pgvector · basic gateway with retry/backoff | Skeleton has to be observable from day one |
 | 2 | First connector exposed through PDS with 3–5 semantic tools · end-to-end trace | Proves the abstraction holds for one real backend |
@@ -285,7 +285,7 @@ PDS is an eight-week build from skeleton to first reference deployment. The cade
 | 5 | Second connector (different backend) | Proves cross-system semantic-tool abstraction |
 | 6 | SLA metadata · failure-mode descriptions · circuit breaker | Production-readiness |
 | 7 | First end-to-end production reference deployment | Business outcome |
-| 8 | Spec / one-pager / case study | Compounds future customer acquisition |
+| 8 | Spec / one-pager / case study | Compounds future adoption |
 
 ---
 

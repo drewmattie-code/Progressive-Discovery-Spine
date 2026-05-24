@@ -106,9 +106,9 @@ Full discussion of each principle, with problems, patterns, and implementation n
 
 ## Reference build sequence
 
-PDS is an eight-week build from skeleton to first production reference deployment:
+PDS is built in sequence — skeleton through to first production reference deployment. Each step depends on the previous one. Pace varies by team and tooling; the sequence does not.
 
-| Week | Deliverable |
+| Step | Deliverable |
 |---|---|
 | 1 | Tool manifest format · `search_tools` over pgvector · basic gateway with retry/backoff |
 | 2 | First connector exposed through PDS with 3–5 semantic tools · end-to-end trace |
@@ -117,7 +117,7 @@ PDS is an eight-week build from skeleton to first production reference deploymen
 | 5 | Second connector (different backend), proving cross-system semantic-tool abstraction |
 | 6 | SLA metadata · failure-mode descriptions · circuit breaker · production-ready |
 | 7 | First end-to-end production reference deployment |
-| 8 | Spec / one-pager / investor materials |
+| 8 | Spec / one-pager / case study |
 
 See [SPEC.md](SPEC.md#build-sequence) for details.
 
