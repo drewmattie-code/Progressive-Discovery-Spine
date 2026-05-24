@@ -1,0 +1,26 @@
+# License
+
+This project uses **dual licensing**:
+
+- **Specification, documentation, diagrams, and prose content** (README.md, SPEC.md, any `.md` file under `docs/`, the architecture diagrams in this repository) are licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE-CC-BY-4.0).
+
+- **Code samples and examples** (anything under `examples/`, any source file with a `.py` / `.ts` / `.js` / `.json` extension) are licensed under the [MIT License](LICENSE-MIT).
+
+## What this means in practice
+
+- You can use, adapt, build commercial products on top of, and redistribute the PDS specification — **with attribution**. Cite this repository as the source.
+- You can copy, modify, and use the code samples freely under standard MIT terms.
+- If you publish PDS-derived material (a blog post, vendor architecture doc, paper, internal spec), attribution should read:
+
+> Based on the Progressive Discovery Spine specification by Drew Mattie (Charles & Roe Inc., 2026), released under CC BY 4.0. https://github.com/drewmattie-code/pds
+
+A machine-readable citation file is available at [CITATION.cff](CITATION.cff).
+
+## SPDX identifiers
+
+- Spec content: `CC-BY-4.0`
+- Code content: `MIT`
+
+## Questions
+
+Open an issue, or contact Drew Mattie via the link in the repository's About section.

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://github.com/drewmattie-code/pds/schema/tool-manifest.v1.json",
+  "name": "search_open_pos",
+  "version": "1.2.0",
+  "description": "Search purchase orders by supplier, date range, and value threshold. Returns composed PO objects with line items, supplier scorecard summary, contract reference, and any active rebate tier in one response.",
+  "intent_examples": [
+    "show me open POs for supplier X",
+    "which purchase orders haven't shipped this quarter",
+    "find POs over $50k that are past due",
+    "what are we waiting on from Eaton"
+  ],
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "supplier_id": {
+        "type": "string",
+        "description": "Normalized supplier identifier from the CDM. Omit to search across all suppliers."
+      },
+      "date_range": {
+        "type": "object",
+        "properties": {
+          "start": { "type": "string", "format": "date" },
+          "end": { "type": "string", "format": "date" }
+        }
+      },
+      "value_threshold": {
+        "type": "number",
+        "description": "Minimum PO total value (in tenant base currency)."
+      },
+      "customer_id": {
+        "type": "string",
+        "description": "Restrict to POs associated with a specific customer."
+      }
+    }
+  },
+  "returns": {
+    "type": "object",
+    "description": "Composed PurchaseOrder envelope. Includes header, line items, supplier scorecard summary, contract reference, and active rebate tier."
+  },
+  "sla": {
+    "p50_latency_ms": 600,
+    "p95_latency_ms": 2000,
+    "freshness_seconds": 300,
+    "cost_units": 1,
+    "availability_windows": "24x7 except backend batch windows",
+    "known_batch_windows": ["02:00-04:00 UTC daily"],
+    "cache_policy": "session, 10min TTL, CDC-invalidated"
+  },
+  "failure_modes": [
+    "Backend IDoc queue saturation may cause >5s latency on high-volume tenants",
+    "Returns cached data with staleness flag during scheduled batch windows",
+    "Returns partial result with degraded scorecard if supplier risk service is open-circuit"
+  ],
+  "tenant_scope": {
+    "required": true,
+    "enforced_at": "gateway"
+  },
+  "audit": {
+    "level": "full",
+    "pii_redaction": ["customer_name", "customer_email", "shipping_address"]
+  },
+  "observability": {
+    "trace": true,
+    "metrics": ["latency", "cache_hit", "response_size", "backend_status"],
+    "business_outcome_tag": "procurement.search"
+  }
+}

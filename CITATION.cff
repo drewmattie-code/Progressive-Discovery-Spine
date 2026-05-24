@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+title: "Progressive Discovery Spine: An architectural pattern for scaling AI agents against enterprise systems"
+message: "If you use this specification, please cite it as below."
+type: software
+authors:
+  - given-names: Drew
+    family-names: Mattie
+    affiliation: Charles & Roe Inc.
+repository-code: "https://github.com/drewmattie-code/pds"
+url: "https://github.com/drewmattie-code/pds"
+license:
+  - CC-BY-4.0
+  - MIT
+date-released: 2026-05-24
+version: "1.0"
+abstract: >
+  PDS (Progressive Discovery Spine) is an architectural pattern for the
+  middleware layer between AI agents and enterprise backend systems. It
+  addresses four documented failure modes of naive MCP deployment at scale:
+  context bloat, hallucinated tool selection, missing production controls
+  (retries / backpressure / observability / audit), and discovery
+  anti-patterns. The pattern is defined as ten principles plus reference
+  SLAs and an eight-week build sequence.
+keywords:
+  - mcp
+  - model-context-protocol
+  - ai-agents
+  - enterprise-ai
+  - llm-tooling
+  - progressive-discovery
+  - tool-search
+  - llm-architecture
+  - ai-infrastructure
