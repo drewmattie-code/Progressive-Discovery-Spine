@@ -106,7 +106,7 @@ def agent_loop_example():
     """
 
     # Step 1: agent gets a task.
-    task = "I need to know which customers are exposed to Eaton lead-time risk"
+    task = "I need to know which customers are exposed to a key supplier's lead-time risk"
 
     # Step 2: agent asks PDS what tools could help.
     tools = search_tools(

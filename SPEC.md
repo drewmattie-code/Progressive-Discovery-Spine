@@ -112,7 +112,7 @@ Each pack is 5–8 tools. The names above are illustrative — name your packs a
 search_tools(query: str, limit: int = 5) -> list[ToolDefinition]
 ```
 
-The agent calls `search_tools("which customers have Eaton breaker exposure")`. PDS queries its internal tool index (pgvector embedding over tool descriptions + entity names + common query phrasings) and returns the 5 most relevant tools. The agent then invokes those.
+The agent calls `search_tools("which customers have exposure to a single supplier")`. PDS queries its internal tool index (pgvector embedding over tool descriptions + entity names + common query phrasings) and returns the 5 most relevant tools. The agent then invokes those.
 
 **Why this works.**
 
@@ -246,7 +246,7 @@ See [`examples/action-menu.md`](examples/action-menu.md) for the UI pattern.
 
 ### 3.10 — Natural-language entry as the front door
 
-**Problem.** Users shouldn't have to know which product or sub-system to enter to accomplish a task. "Find customers exposed to Eaton lead-time extension" is not a sub-product question — it's an organizational question.
+**Problem.** Users shouldn't have to know which product or sub-system to enter to accomplish a task. "Find customers exposed to a major vendor's lead-time extension" is not a sub-product question — it's an organizational question.
 
 **Pattern.** Expose a single natural-language query bar as the front door to the entire system. User types a query. The query bar calls PDS `search_tools(query)`. PDS retrieves relevant tools. An agent runs them. A synthesized answer comes back.
 

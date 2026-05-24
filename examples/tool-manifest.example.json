@@ -7,7 +7,7 @@
     "show me open POs for supplier X",
     "which purchase orders haven't shipped this quarter",
     "find POs over $50k that are past due",
-    "what are we waiting on from Eaton"
+    "what are we waiting on from this vendor"
   ],
   "parameters": {
     "type": "object",

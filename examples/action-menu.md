@@ -8,7 +8,7 @@ Every entity in your UI surfaces a right-click (or long-press, or button click) 
 
 ```
 ┌─────────────────────────────────────────────┐
-│ Supplier: Eaton Electrical                  │  ← user right-clicks this row
+│ Supplier: Acme Components                   │  ← user right-clicks this row
 │   Risk score: 72  ·  Open POs: 14           │
 └─────────────────────────────────────────────┘
                     │
@@ -26,7 +26,7 @@ Every entity in your UI surfaces a right-click (or long-press, or button click) 
 The user picks one. The agent invokes the tool with parameters bound from the UI:
 
 ```ts
-// User clicked "Reconcile current rebate" on the Eaton row.
+// User clicked "Reconcile current rebate" on the supplier row.
 invokeTool("reconcile_rebate", {
   supplier_id: row.supplierId,            // bound from the row the user clicked
   period: currentPeriod(),                // bound from app state
