@@ -6,8 +6,8 @@ authors:
   - given-names: Drew
     family-names: Mattie
     affiliation: Charles & Roe Inc.
-repository-code: "https://github.com/drewmattie-code/pds"
-url: "https://github.com/drewmattie-code/pds"
+repository-code: "https://github.com/drewmattie-code/Progressive-Discovery-Spine"
+url: "https://github.com/drewmattie-code/Progressive-Discovery-Spine"
 license:
   - CC-BY-4.0
   - MIT

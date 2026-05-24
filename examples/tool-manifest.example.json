@@ -1,5 +1,5 @@
 {
-  "$schema": "https://github.com/drewmattie-code/pds/schema/tool-manifest.v1.json",
+  "$schema": "https://github.com/drewmattie-code/Progressive-Discovery-Spine/schema/tool-manifest.v1.json",
   "name": "search_open_pos",
   "version": "1.2.0",
   "description": "Search purchase orders by supplier, date range, and value threshold. Returns composed PO objects with line items, supplier scorecard summary, contract reference, and any active rebate tier in one response.",

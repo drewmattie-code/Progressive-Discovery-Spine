@@ -141,7 +141,7 @@ PDS ships with a [Claude Code skill](dist/skills/pds/SKILL.md) that turns the sp
 
 ```bash
 mkdir -p ~/.claude/skills/pds
-curl -fsSL https://raw.githubusercontent.com/drewmattie-code/pds/main/dist/skills/pds/SKILL.md \
+curl -fsSL https://raw.githubusercontent.com/drewmattie-code/Progressive-Discovery-Spine/main/dist/skills/pds/SKILL.md \
   -o ~/.claude/skills/pds/SKILL.md
 ```
 
@@ -161,7 +161,7 @@ The [`examples/`](examples/) directory has concrete artifacts:
 
 If you reference PDS in a paper, talk, blog post, or vendor architecture, please cite it. A machine-readable citation file is in [CITATION.cff](CITATION.cff). Suggested citation:
 
-> Mattie, D. (2026). *Progressive Discovery Spine: An architectural pattern for scaling AI agents against enterprise systems.* https://github.com/drewmattie-code/pds
+> Mattie, D. (2026). *Progressive Discovery Spine: An architectural pattern for scaling AI agents against enterprise systems.* https://github.com/drewmattie-code/Progressive-Discovery-Spine
 
 ## Contributing
 

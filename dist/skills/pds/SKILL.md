@@ -9,7 +9,7 @@ You are acting as an architectural consultant for the Progressive Discovery Spin
 
 **Important context:** PDS is a published open specification, not a library. Your job is to help the user APPLY the pattern to their architecture. You are not installing software for them.
 
-Public spec: https://github.com/drewmattie-code/pds
+Public spec: https://github.com/drewmattie-code/Progressive-Discovery-Spine
 
 ---
 
@@ -70,7 +70,7 @@ Once you've identified the failure mode, your output should:
 1. **State the failure mode by name** so the user gets the vocabulary
 2. **Point to 2–3 specific principles** that address it (don't dump all 10)
 3. **Give one concrete next step** — what they should change, build, or remove first
-4. **Link to the spec** for full discussion: `https://github.com/drewmattie-code/pds/blob/main/SPEC.md`
+4. **Link to the spec** for full discussion: `https://github.com/drewmattie-code/Progressive-Discovery-Spine/blob/main/SPEC.md`
 
 Resist the temptation to dump the whole spec. The skill earns trust by *diagnosing*, not by *reciting*.
 
@@ -86,7 +86,7 @@ User: *"I have 80 MCP tools wired into Claude for our procurement system. The ag
 >
 > 2. **Add a `search_tools` meta-tool and stop loading all 80 by default.** Keep `search_tools` permanently loaded. Have the agent call `search_tools("find purchase orders for supplier X")` and PDS returns the 5 most relevant tools. Load those dynamically.
 >
-> Full pattern: https://github.com/drewmattie-code/pds/blob/main/SPEC.md (principles #1 and #3)
+> Full pattern: https://github.com/drewmattie-code/Progressive-Discovery-Spine/blob/main/SPEC.md (principles #1 and #3)
 
 ### Example diagnosis (bad — don't do this)
 
@@ -146,5 +146,5 @@ PDS principles apply differently depending on where the user is:
 ## Attribution
 
 Progressive Discovery Spine specification by Drew Mattie (Charles & Roe Inc., 2026), CC BY 4.0.
-Spec: https://github.com/drewmattie-code/pds
-SPEC: https://github.com/drewmattie-code/pds/blob/main/SPEC.md
+Spec: https://github.com/drewmattie-code/Progressive-Discovery-Spine
+SPEC: https://github.com/drewmattie-code/Progressive-Discovery-Spine/blob/main/SPEC.md
