@@ -31,18 +31,16 @@ The result: the same architecture serves a single-schema prototype and a multi-s
 
 ## Why it exists
 
-In April 2026, David Soria Parra (co-creator of MCP at Anthropic) used his keynote at MCP Dev Summit NA to publicly document what breaks when enterprises scale MCP naively. His four failure modes:
+In April 2026, David Soria Parra (co-creator of MCP at Anthropic) used his MCP Dev Summit NA keynote to publicly document the failure modes that recur when enterprises deploy MCP naively. His characterization across the talk and subsequent interviews can be summarized as four problems:
 
-1. **Context bloat** — dozens to hundreds of tools exposed upfront; >20% of the context window consumed before reasoning starts
+1. **Context bloat** — dozens to hundreds of tools exposed upfront; a significant portion of the context window consumed by tool definitions before reasoning starts
 2. **Hallucinated tool selection** — with unlimited tool choice, models pick wrong tools
 3. **Production gaps** — the protocol itself defines no retries, observability, backpressure, or coordination between agents
 4. **Discovery anti-patterns** — static tool exposure fails at scale; dynamic retrieval (progressive discovery) is the emerging pattern
 
-> "Across dozens of integrations, a significant portion of the context window is consumed before the model does any actual reasoning. Teams blame MCP when the issue is implementation."
->
-> — David Soria Parra, co-creator of MCP · Anthropic · MCP Dev Summit NA 2026
+Soria Parra's root framing — that the protocol isn't broken but the deployment pattern around it is — is the claim PDS builds on. PDS is the implementation pattern that addresses all four failure modes. It's what production teams converge on once they hit their second or third real backend system.
 
-PDS is the implementation pattern that addresses all four. It's what production teams converge on after their second or third real customer.
+References: [Soria Parra's MCP Dev Summit keynote](https://youtu.be/v3Fr2JR47KA) · [Shiftmag interview with the MCP co-creator](https://shiftmag.dev/mcp-co-creator-explains-why-mcp-needs-more-than-the-protocol-to-scale-9041/)
 
 ## Architecture
 

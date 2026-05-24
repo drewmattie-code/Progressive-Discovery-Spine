@@ -15,7 +15,7 @@ The Model Context Protocol (MCP) gave the industry a clean, vendor-neutral way t
 
 Four failure modes recur across teams:
 
-1. **Context bloat.** Exposing every available tool consumes the context window before reasoning starts. Soria Parra has measured >20% of context spent on tool definitions alone.
+1. **Context bloat.** Exposing every available tool consumes the context window before reasoning starts. Soria Parra has publicly described teams losing substantial portions of their context window to tool definitions before the model begins to reason.
 2. **Hallucinated tool selection.** With unlimited tool choice, models pick wrong tools. The accuracy of tool selection degrades non-linearly with catalog size.
 3. **Production gaps.** MCP defines no retries, no observability, no backpressure, no coordination. Production deployments need all four.
 4. **Discovery anti-patterns.** Static tool exposure scales poorly. Dynamic retrieval — progressive discovery — is the emerging pattern, but the protocol doesn't define it.
@@ -242,7 +242,7 @@ A worked example of a tool manifest with SLA metadata is in [`examples/tool-mani
 
 Every parameter is bound from UI context. Zero hallucination surface.
 
-This is Soria Parra's "reduce decision surface" pushed to its logical conclusion. PDS makes the pattern uniformly implementable across every product surface in your system.
+This is the reduce-the-decision-surface principle Soria Parra has discussed publicly, pushed to its logical conclusion. PDS makes the pattern uniformly implementable across every product surface in your system.
 
 See [`examples/action-menu.md`](examples/action-menu.md) for the UI pattern.
 
