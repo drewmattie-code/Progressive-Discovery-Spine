@@ -2,7 +2,7 @@
 
 # Progressive Discovery Spine
 
-**An architectural pattern for letting AI agents work against enterprise systems at scale — without context blowout, without hallucinated tool selection, without audit gaps.**
+**The missing architectural layer above MCP. Production patterns for LLM agents wired to enterprise systems at scale — without context blowout, hallucinated tool selection, or audit gaps.**
 
 [![License: CC BY 4.0](https://img.shields.io/badge/spec-CC_BY_4.0-blue?style=flat-square)](LICENSE-CC-BY-4.0)
 [![License: MIT](https://img.shields.io/badge/code-MIT-green?style=flat-square)](LICENSE-MIT)
@@ -73,6 +73,35 @@ flowchart TD
 ```
 
 Every arrow through PDS is observable, tenant-scoped, retry-handled, and audit-logged.
+
+## Where PDS fits in the MCP stack
+
+The Model Context Protocol (MCP) gave the industry a clean, vendor-neutral way to expose tools to AI models. As a protocol, it works. As a *deployment pattern*, it leaves four production gaps that every team scaling MCP naively rediscovers: context bloat, hallucinated tool selection, missing production controls (retries / observability / backpressure / audit), and discovery anti-patterns.
+
+PDS is the layer that closes those gaps. It does not replace MCP — it sits **on top of MCP** and treats MCP servers as the substrate:
+
+```
+┌────────────────────────────────────────┐
+│ AI Agents · LLM Products · Copilots    │  ← what your users see
+└──────────────────┬─────────────────────┘
+                   ↓
+┌────────────────────────────────────────┐
+│ Progressive Discovery Spine (PDS)      │  ← THIS spec
+│ tool search · packs · gateway · cache  │
+│ tenant isolation · audit · SLA-aware   │
+└──────────────────┬─────────────────────┘
+                   ↓
+┌────────────────────────────────────────┐
+│ Model Context Protocol (MCP)           │  ← Anthropic's protocol
+│ one MCP server per backend             │
+└──────────────────┬─────────────────────┘
+                   ↓
+┌────────────────────────────────────────┐
+│ Enterprise systems · ERP · CRM · DBs   │  ← your data
+└────────────────────────────────────────┘
+```
+
+If MCP is HTTP for AI-to-data, PDS is the load balancer, auth proxy, and traffic shaper that production HTTP deployments take for granted. MCP is necessary; PDS is what lets MCP survive past prototype.
 
 ## The 10 principles
 

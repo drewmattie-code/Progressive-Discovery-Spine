@@ -9,7 +9,11 @@ This is the full technical specification for the Progressive Discovery Spine pat
 
 ## 1. Context — what PDS solves
 
-The Model Context Protocol (MCP) gave the industry a clean, vendor-neutral way to expose tools to AI models. As a protocol, it works. As a deployment pattern, naive use of MCP falls apart at enterprise scale. Four failure modes recur across teams:
+The Model Context Protocol (MCP) gave the industry a clean, vendor-neutral way to expose tools to AI models. As a protocol, it works. As a deployment pattern, naive use of MCP falls apart at enterprise scale.
+
+**MCP is necessary infrastructure for AI-to-enterprise integration. PDS is the architectural discipline that lets MCP deployments survive past prototype.** PDS does not replace MCP — it sits on top of it, treating MCP servers as the substrate and closing the production gaps the protocol does not define.
+
+Four failure modes recur across teams:
 
 1. **Context bloat.** Exposing every available tool consumes the context window before reasoning starts. Soria Parra has measured >20% of context spent on tool definitions alone.
 2. **Hallucinated tool selection.** With unlimited tool choice, models pick wrong tools. The accuracy of tool selection degrades non-linearly with catalog size.
