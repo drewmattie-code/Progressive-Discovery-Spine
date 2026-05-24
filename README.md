@@ -118,6 +118,44 @@ If MCP is HTTP for AI-to-data, PDS is the load balancer, auth proxy, and traffic
 
 Full discussion of each principle, with problems, patterns, and implementation notes, lives in [SPEC.md](SPEC.md).
 
+## Industry context — convergence on the same pattern
+
+PDS is not a novel invention. It's a formalization of a pattern that production AI teams have independently converged on across the industry. Major companies, infrastructure vendors, and published whitepapers in late 2025 and early 2026 have all arrived at the same conclusion: MCP at enterprise scale requires a layer above the protocol that progressively discovers tools rather than statically exposing them. PDS synthesizes that convergence into a single referenceable specification.
+
+### Independent industry implementations
+
+**Amazon (Prime Video) — Progressive Tool Discovery for MCP Servers.** Amazon's Prime Video team documented their own implementation in the ZenML LLMOps Database. Their description matches PDS principles #2 and #3 directly: "exposing only a single 'find tools' capability at initialization that agents could invoke to dynamically discover and load relevant tool subsets based on problem categories." Reported result: from hundreds of tools to just three or four context-appropriate tools per task. [Source](https://www.zenml.io/llmops-database/progressive-tool-discovery-for-mcp-servers-to-manage-context-at-scale)
+
+**Speakeasy — 100x token reduction with dynamic toolsets.** Speakeasy benchmarked the static-vs-dynamic-discovery tradeoff concretely: "A general purpose MCP server for a large enterprise product with hundreds of tools consumes 405,000 tokens before any work begins. Since Claude's context window is 200,000 tokens, this server simply won't work." Their dynamic-discovery system reduces token usage by 100x or more while maintaining performance as toolset size grows. [100x reduction post](https://www.speakeasy.com/blog/100x-token-reduction-dynamic-toolsets) · [Progressive discovery vs semantic search comparison](https://www.speakeasy.com/blog/how-we-reduced-token-usage-by-100x-dynamic-toolsets-v2)
+
+**TrueFoundry — MCP Gateway as a commercial product.** TrueFoundry shipped an MCP Gateway whose architecture matches PDS principles #5 (gateway as control layer) and #7 (tenant-scoped catalogs): "agents do not discover tools by directly querying MCP servers or relying on static configuration. Instead, tool discovery is mediated through the MCP Gateway, which sits between agents and MCP servers and enforces discovery using identity, environment, and policy context." [MCP Gateway product](https://www.truefoundry.com/mcp-gateway) · [Tool discovery deep-dive](https://www.truefoundry.com/blog/mcp-tool-discovery-for-enterprise-ai-agents)
+
+**Matthew Kruczek — "Progressive Disclosure MCP" whitepaper (January 2026).** Kruczek formalized the pattern with measured benchmarks: "Production implementations report 85-100x reductions in token usage while maintaining or improving tool selection accuracy." His central claim aligns with PDS's framing: "Every major implementation pushing MCP to enterprise scale has independently converged on progressive disclosure as the solution." [Whitepaper](https://matthewkruczek.ai/blog/progressive-disclosure-mcp-servers.html)
+
+### Foundational sources from protocol authors
+
+**Anthropic — Agent Skills design principle.** Anthropic's own Agent Skills design uses progressive discovery as the core architectural principle: skills load metadata first, full instructions on demand, supplementary files only when needed. The mechanism is identical to PDS principle #3 (tool search as default entry point), applied to skills instead of MCP tools. [Agent Skills overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) · [Anthropic engineering blog: Equipping agents for the real world with Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
+
+**David Soria Parra (MCP co-creator) — MCP Dev Summit NA 2026 keynote.** Soria Parra publicly documented the four failure modes PDS addresses. [Keynote](https://youtu.be/v3Fr2JR47KA) · [Shiftmag interview](https://shiftmag.dev/mcp-co-creator-explains-why-mcp-needs-more-than-the-protocol-to-scale-9041/)
+
+**OpenAI — function calling documentation.** OpenAI's official function-calling guide explicitly recommends tool search for large tool sets: "When your application has many functions or large schemas, you can pair function calling with tool search to defer rarely used tools and load them only when the model needs them." This is PDS principle #3 in OpenAI's own words. [OpenAI function calling guide](https://developers.openai.com/api/docs/guides/function-calling)
+
+**LangChain — dynamic tool calling in LangGraph.** LangChain added dynamic tool calling as a core LangGraph feature: "you can now control which tools are available at different points in a run... start with a small, focused toolset, then expand as the task evolves." [LangChain changelog announcement](https://changelog.langchain.com/announcements/dynamic-tool-calling-in-langgraph-agents)
+
+**Model Context Protocol specification.** The protocol PDS sits above. [modelcontextprotocol.io](https://modelcontextprotocol.io)
+
+### What PDS contributes
+
+The sources above document INDIVIDUAL implementations and isolated principles. PDS contributes:
+
+1. A unified set of **10 principles** mapped to specific documented failure modes
+2. **Target SLAs** for production readiness
+3. An **8-step build sequence** from skeleton to reference deployment
+4. **Anti-patterns** to avoid
+5. A **portable, citable specification** under CC BY 4.0 — adopt, adapt, build commercial products on top, with attribution
+
+If your team is independently converging on this pattern (as Amazon, Speakeasy, TrueFoundry, and others already have), PDS gives you a vocabulary, a checklist, and a published artifact you can hand to your peers.
+
 ## What good looks like (target SLAs)
 
 | Metric | Target | Why it matters |
