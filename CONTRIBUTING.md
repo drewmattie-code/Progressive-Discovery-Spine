@@ -6,7 +6,7 @@ PDS is a **pattern specification**, not a software library. Contributions are mo
 
 ## 1. Implementation reports
 
-If you have built a system that implements PDS (or pieces of it) in production, an issue or PR describing what worked, what didn't, and what you'd refine is the highest-value contribution. Anonymized is fine — patterns and surprises matter more than vendor names.
+If you have built a system that implements PDS (or pieces of it) in production, an issue or PR describing what worked, what didn't, and what you'd refine is the highest-value contribution. Anonymized is fine, patterns and surprises matter more than vendor names.
 
 Template: open an issue with title `[Implementation] <one-line summary>` and include:
 
@@ -17,7 +17,7 @@ Template: open an issue with title `[Implementation] <one-line summary>` and inc
 
 ## 2. Pattern refinements and additions
 
-If you find a missing principle, an unhandled failure mode, or a refinement to an existing principle, open an issue first to discuss before sending a PR. The spec is intentionally tight — every principle has earned its place. New principles need to be load-bearing, not nice-to-have.
+If you find a missing principle, an unhandled failure mode, or a refinement to an existing principle, open an issue first to discuss before sending a PR. The spec is intentionally tight, every principle has earned its place. New principles need to be load-bearing, not nice-to-have.
 
 Refinements to existing principles are easier: open a PR with the proposed change to [SPEC.md](SPEC.md) and a one-paragraph rationale. Cite implementations or production incidents where possible.
 
@@ -34,8 +34,8 @@ Keep examples small and concrete. The point is to show the shape; production-gra
 
 ## What we won't accept
 
-- Vendor advertising — examples that exist primarily to promote a product. Keep examples vendor-neutral; if you need to name a backend, use it as one of many examples.
-- Speculative principles — additions without an implementation that supports them.
+- Vendor advertising: examples that exist primarily to promote a product. Keep examples vendor-neutral; if you need to name a backend, use it as one of many examples.
+- Speculative principles: additions without an implementation that supports them.
 - Cosmetic edits without rationale.
 
 ## Style

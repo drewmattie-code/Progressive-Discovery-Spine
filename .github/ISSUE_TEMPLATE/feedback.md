@@ -30,6 +30,6 @@ Principle #__ (Section 3.__ in SPEC.md)
 
 <!-- Why does this matter? Implementation experience? Production incident? Reading the spec for the first time? -->
 
-## (If a refinement) — proposed wording
+## (If a refinement): proposed wording
 
 <!-- Optional. If you want to suggest specific spec language, paste it here. -->

@@ -2,7 +2,7 @@
 
 # Progressive Discovery Spine
 
-**The missing architectural layer above MCP. Production patterns for LLM agents wired to enterprise systems at scale — without context blowout, hallucinated tool selection, or audit gaps.**
+**The missing architectural layer above MCP. Production patterns for LLM agents wired to enterprise systems at scale, without context blowout, hallucinated tool selection, or audit gaps.**
 
 [![License: CC BY 4.0](https://img.shields.io/badge/spec-CC_BY_4.0-blue?style=flat-square)](LICENSE-CC-BY-4.0)
 [![License: MIT](https://img.shields.io/badge/code-MIT-green?style=flat-square)](LICENSE-MIT)
@@ -17,28 +17,28 @@
 
 PDS is a pattern for the layer that sits **between your AI agents and your backend systems**.
 
-Most production AI integrations today expose tools directly to the model — a hundred MCP tools, a thousand database functions, every CRM endpoint. At prototype scale, against one schema with toy data, it works. The moment it hits real enterprise data volumes — millions of records, hundreds of tables, multiple backend systems wired together — it breaks: context window saturates before reasoning begins, the model hallucinates wrong tools, observability is missing, and isolation between data domains is an afterthought.
+Most production AI integrations today expose tools directly to the model: a hundred MCP tools, a thousand database functions, every CRM endpoint. At prototype scale, against one schema with toy data, it works. The moment it hits real enterprise data volumes (millions of records, hundreds of tables, multiple backend systems wired together) it breaks: context window saturates before reasoning begins, the model hallucinates wrong tools, observability is missing, and isolation between data domains is an afterthought.
 
 PDS is the discipline that fixes this. Instead of exposing every backend tool to every agent, the spine:
 
-- Exposes **one entry point** (`search_tools`) that retrieves the right 5–8 tools on demand
+- Exposes **one entry point** (`search_tools`) that retrieves the right 5-8 tools on demand
 - Wraps tools as **semantic business entities**, not raw tables
 - Routes every call through a **gateway** with retry, backpressure, observability, audit
 - Enforces **tenant isolation** at the protocol layer, not the application layer
 - Annotates each tool with **SLA metadata** so agent planners can route intelligently
 
-The result: the same architecture serves a single-schema prototype and a multi-system enterprise deployment handling millions of records across hundreds of tools — whether the integration target is your own internal data estate or a customer's or supplier's. No re-platforming.
+The result: the same architecture serves a single-schema prototype and a multi-system enterprise deployment handling millions of records across hundreds of tools, whether the integration target is your own internal data estate or a customer's or supplier's. No re-platforming.
 
 ## Why it exists
 
 In April 2026, David Soria Parra (co-creator of MCP at Anthropic) used his MCP Dev Summit NA keynote to publicly document the failure modes that recur when enterprises deploy MCP naively. His characterization across the talk and subsequent interviews can be summarized as four problems:
 
-1. **Context bloat** — dozens to hundreds of tools exposed upfront; a significant portion of the context window consumed by tool definitions before reasoning starts
-2. **Hallucinated tool selection** — with unlimited tool choice, models pick wrong tools
-3. **Production gaps** — the protocol itself defines no retries, observability, backpressure, or coordination between agents
-4. **Discovery anti-patterns** — static tool exposure fails at scale; dynamic retrieval (progressive discovery) is the emerging pattern
+1. **Context bloat**: dozens to hundreds of tools exposed upfront; a significant portion of the context window consumed by tool definitions before reasoning starts
+2. **Hallucinated tool selection**: with unlimited tool choice, models pick wrong tools
+3. **Production gaps**: the protocol itself defines no retries, observability, backpressure, or coordination between agents
+4. **Discovery anti-patterns**: static tool exposure fails at scale; dynamic retrieval (progressive discovery) is the emerging pattern
 
-Soria Parra's root framing — that the protocol isn't broken but the deployment pattern around it is — is the claim PDS builds on. PDS is the implementation pattern that addresses all four failure modes. It's what production teams converge on once they hit their second or third real backend system.
+Soria Parra's root framing, that the protocol isn't broken but the deployment pattern around it is, is the claim PDS builds on. PDS is the implementation pattern that addresses all four failure modes. It's what production teams converge on once they hit their second or third real backend system.
 
 References: [Soria Parra's MCP Dev Summit keynote](https://youtu.be/v3Fr2JR47KA) · [Shiftmag interview with the MCP co-creator](https://shiftmag.dev/mcp-co-creator-explains-why-mcp-needs-more-than-the-protocol-to-scale-9041/)
 
@@ -76,7 +76,7 @@ Every arrow through PDS is observable, tenant-scoped, retry-handled, and audit-l
 
 The Model Context Protocol (MCP) gave the industry a clean, vendor-neutral way to expose tools to AI models. As a protocol, it works. As a *deployment pattern*, it leaves four production gaps that every team scaling MCP naively rediscovers: context bloat, hallucinated tool selection, missing production controls (retries / observability / backpressure / audit), and discovery anti-patterns.
 
-PDS is the layer that closes those gaps. It does not replace MCP — it sits **on top of MCP** and treats MCP servers as the substrate:
+PDS is the layer that closes those gaps. It does not replace MCP, it sits **on top of MCP** and treats MCP servers as the substrate:
 
 ```
 ┌────────────────────────────────────────┐
@@ -106,10 +106,10 @@ If MCP is HTTP for AI-to-data, PDS is the load balancer, auth proxy, and traffic
 | # | Principle | The shift |
 |---|---|---|
 | 01 | **Semantic entity tools, not table tools** | The tool *is* the business query (`search_open_pos`), not a primitive (`po_header`). Composition lives in the tool, not the agent. |
-| 02 | **Workflow-scoped tool packages** | Load 5–8 tools per agent task, not 200. Each agent declares its pack at session start. |
+| 02 | **Workflow-scoped tool packages** | Load 5-8 tools per agent task, not 200. Each agent declares its pack at session start. |
 | 03 | **Tool search as the default entry point** | One meta-tool (`search_tools`) stays loaded. Agent asks in plain English; PDS retrieves the right five. |
 | 04 | **Normalized data model as abstraction** | Agent reasons on `Supplier` / `PurchaseOrder` / `Invoice`, not on `LIFNR` or `PO_HEADERS_ALL`. Connectors translate. |
-| 05 | **Gateway as the control layer** | Retry, backpressure, circuit breaker, tenant isolation, schema validation — none of these are in MCP itself. Put them in the spine. |
+| 05 | **Gateway as the control layer** | Retry, backpressure, circuit breaker, tenant isolation, schema validation, none of these are in MCP itself. Put them in the spine. |
 | 06 | **Per-session caching with freshness metadata** | Cache by `(tenant, session, tool, params)`. Every response carries `fetched_at` + `cache_age_seconds` + `freshness_policy` so agents decide when to bypass. |
 | 07 | **Tenant-scoped tool catalogs** | An Oracle-tenant session only sees Oracle-backed tools. SAP-tenant sees SAP-backed. Smaller context, zero collisions, no cross-tenant leak surface. |
 | 08 | **Failure-aware tool descriptions** | Every tool description includes p50/p95 latency, freshness, batch windows, known failure modes. Agent planners route around degradation. |
@@ -118,29 +118,29 @@ If MCP is HTTP for AI-to-data, PDS is the load balancer, auth proxy, and traffic
 
 Full discussion of each principle, with problems, patterns, and implementation notes, lives in [SPEC.md](SPEC.md).
 
-## Industry context — convergence on the same pattern
+## Industry context: convergence on the same pattern
 
 PDS is not a novel invention. It's a formalization of a pattern that production AI teams have independently converged on across the industry. Major companies, infrastructure vendors, and published whitepapers in late 2025 and early 2026 have all arrived at the same conclusion: MCP at enterprise scale requires a layer above the protocol that progressively discovers tools rather than statically exposing them. PDS synthesizes that convergence into a single referenceable specification.
 
 ### Independent industry implementations
 
-**Amazon (Prime Video) — Progressive Tool Discovery for MCP Servers.** Amazon's Prime Video team documented their own implementation in the ZenML LLMOps Database. Their description matches PDS principles #2 and #3 directly: "exposing only a single 'find tools' capability at initialization that agents could invoke to dynamically discover and load relevant tool subsets based on problem categories." Reported result: from hundreds of tools to just three or four context-appropriate tools per task. [Source](https://www.zenml.io/llmops-database/progressive-tool-discovery-for-mcp-servers-to-manage-context-at-scale)
+**Amazon (Prime Video): Progressive Tool Discovery for MCP Servers.** Amazon's Prime Video team documented their own implementation in the ZenML LLMOps Database. Their description matches PDS principles #2 and #3 directly: "exposing only a single 'find tools' capability at initialization that agents could invoke to dynamically discover and load relevant tool subsets based on problem categories." Reported result: from hundreds of tools to just three or four context-appropriate tools per task. [Source](https://www.zenml.io/llmops-database/progressive-tool-discovery-for-mcp-servers-to-manage-context-at-scale)
 
-**Speakeasy — 100x token reduction with dynamic toolsets.** Speakeasy benchmarked the static-vs-dynamic-discovery tradeoff concretely: "A general purpose MCP server for a large enterprise product with hundreds of tools consumes 405,000 tokens before any work begins. Since Claude's context window is 200,000 tokens, this server simply won't work." Their dynamic-discovery system reduces token usage by 100x or more while maintaining performance as toolset size grows. [100x reduction post](https://www.speakeasy.com/blog/100x-token-reduction-dynamic-toolsets) · [Progressive discovery vs semantic search comparison](https://www.speakeasy.com/blog/how-we-reduced-token-usage-by-100x-dynamic-toolsets-v2)
+**Speakeasy: 100x token reduction with dynamic toolsets.** Speakeasy benchmarked the static-vs-dynamic-discovery tradeoff concretely: "A general purpose MCP server for a large enterprise product with hundreds of tools consumes 405,000 tokens before any work begins. Since Claude's context window is 200,000 tokens, this server simply won't work." Their dynamic-discovery system reduces token usage by 100x or more while maintaining performance as toolset size grows. [100x reduction post](https://www.speakeasy.com/blog/100x-token-reduction-dynamic-toolsets) · [Progressive discovery vs semantic search comparison](https://www.speakeasy.com/blog/how-we-reduced-token-usage-by-100x-dynamic-toolsets-v2)
 
-**TrueFoundry — MCP Gateway as a commercial product.** TrueFoundry shipped an MCP Gateway whose architecture matches PDS principles #5 (gateway as control layer) and #7 (tenant-scoped catalogs): "agents do not discover tools by directly querying MCP servers or relying on static configuration. Instead, tool discovery is mediated through the MCP Gateway, which sits between agents and MCP servers and enforces discovery using identity, environment, and policy context." [MCP Gateway product](https://www.truefoundry.com/mcp-gateway) · [Tool discovery deep-dive](https://www.truefoundry.com/blog/mcp-tool-discovery-for-enterprise-ai-agents)
+**TrueFoundry: MCP Gateway as a commercial product.** TrueFoundry shipped an MCP Gateway whose architecture matches PDS principles #5 (gateway as control layer) and #7 (tenant-scoped catalogs): "agents do not discover tools by directly querying MCP servers or relying on static configuration. Instead, tool discovery is mediated through the MCP Gateway, which sits between agents and MCP servers and enforces discovery using identity, environment, and policy context." [MCP Gateway product](https://www.truefoundry.com/mcp-gateway) · [Tool discovery deep-dive](https://www.truefoundry.com/blog/mcp-tool-discovery-for-enterprise-ai-agents)
 
-**Matthew Kruczek — "Progressive Disclosure MCP" whitepaper (January 2026).** Kruczek formalized the pattern with measured benchmarks: "Production implementations report 85-100x reductions in token usage while maintaining or improving tool selection accuracy." His central claim aligns with PDS's framing: "Every major implementation pushing MCP to enterprise scale has independently converged on progressive disclosure as the solution." [Whitepaper](https://matthewkruczek.ai/blog/progressive-disclosure-mcp-servers.html)
+**Matthew Kruczek: "Progressive Disclosure MCP" whitepaper (January 2026).** Kruczek formalized the pattern with measured benchmarks: "Production implementations report 85-100x reductions in token usage while maintaining or improving tool selection accuracy." His central claim aligns with PDS's framing: "Every major implementation pushing MCP to enterprise scale has independently converged on progressive disclosure as the solution." [Whitepaper](https://matthewkruczek.ai/blog/progressive-disclosure-mcp-servers.html)
 
 ### Foundational sources from protocol authors
 
-**Anthropic — Agent Skills design principle.** Anthropic's own Agent Skills design uses progressive discovery as the core architectural principle: skills load metadata first, full instructions on demand, supplementary files only when needed. The mechanism is identical to PDS principle #3 (tool search as default entry point), applied to skills instead of MCP tools. [Agent Skills overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) · [Anthropic engineering blog: Equipping agents for the real world with Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
+**Anthropic: Agent Skills design principle.** Anthropic's own Agent Skills design uses progressive discovery as the core architectural principle: skills load metadata first, full instructions on demand, supplementary files only when needed. The mechanism is identical to PDS principle #3 (tool search as default entry point), applied to skills instead of MCP tools. [Agent Skills overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) · [Anthropic engineering blog: Equipping agents for the real world with Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
 
-**David Soria Parra (MCP co-creator) — MCP Dev Summit NA 2026 keynote.** Soria Parra publicly documented the four failure modes PDS addresses. [Keynote](https://youtu.be/v3Fr2JR47KA) · [Shiftmag interview](https://shiftmag.dev/mcp-co-creator-explains-why-mcp-needs-more-than-the-protocol-to-scale-9041/)
+**David Soria Parra (MCP co-creator): MCP Dev Summit NA 2026 keynote.** Soria Parra publicly documented the four failure modes PDS addresses. [Keynote](https://youtu.be/v3Fr2JR47KA) · [Shiftmag interview](https://shiftmag.dev/mcp-co-creator-explains-why-mcp-needs-more-than-the-protocol-to-scale-9041/)
 
-**OpenAI — function calling documentation.** OpenAI's official function-calling guide explicitly recommends tool search for large tool sets: "When your application has many functions or large schemas, you can pair function calling with tool search to defer rarely used tools and load them only when the model needs them." This is PDS principle #3 in OpenAI's own words. [OpenAI function calling guide](https://developers.openai.com/api/docs/guides/function-calling)
+**OpenAI: function calling documentation.** OpenAI's official function-calling guide explicitly recommends tool search for large tool sets: "When your application has many functions or large schemas, you can pair function calling with tool search to defer rarely used tools and load them only when the model needs them." This is PDS principle #3 in OpenAI's own words. [OpenAI function calling guide](https://developers.openai.com/api/docs/guides/function-calling)
 
-**LangChain — dynamic tool calling in LangGraph.** LangChain added dynamic tool calling as a core LangGraph feature: "you can now control which tools are available at different points in a run... start with a small, focused toolset, then expand as the task evolves." [LangChain changelog announcement](https://changelog.langchain.com/announcements/dynamic-tool-calling-in-langgraph-agents)
+**LangChain: dynamic tool calling in LangGraph.** LangChain added dynamic tool calling as a core LangGraph feature: "you can now control which tools are available at different points in a run... start with a small, focused toolset, then expand as the task evolves." [LangChain changelog announcement](https://changelog.langchain.com/announcements/dynamic-tool-calling-in-langgraph-agents)
 
 **Model Context Protocol specification.** The protocol PDS sits above. [modelcontextprotocol.io](https://modelcontextprotocol.io)
 
@@ -152,7 +152,7 @@ The sources above document INDIVIDUAL implementations and isolated principles. P
 2. **Target SLAs** for production readiness
 3. An **8-step build sequence** from skeleton to reference deployment
 4. **Anti-patterns** to avoid
-5. A **portable, citable specification** under CC BY 4.0 — adopt, adapt, build commercial products on top, with attribution
+5. A **portable, citable specification** under CC BY 4.0: adopt, adapt, build commercial products on top, with attribution
 
 If your team is independently converging on this pattern (as Amazon, Speakeasy, TrueFoundry, and others already have), PDS gives you a vocabulary, a checklist, and a published artifact you can hand to your peers.
 
@@ -167,16 +167,16 @@ If your team is independently converging on this pattern (as Amazon, Speakeasy, 
 | Cross-tenant leakage incidents | 0 | Non-negotiable |
 | Audit log completeness | 100% | SOC 2 Type II prerequisite |
 | Tools available per tenant (via search) | > 200 | Coverage |
-| Tools loaded into agent context by default | 5–8 | Efficiency |
+| Tools loaded into agent context by default | 5-8 | Efficiency |
 
 ## Reference build sequence
 
-PDS is built in sequence — skeleton through to first production reference deployment. Each step depends on the previous one. Pace varies by team and tooling; the sequence does not.
+PDS is built in sequence, skeleton through to first production reference deployment. Each step depends on the previous one. Pace varies by team and tooling; the sequence does not.
 
 | Step | Deliverable |
 |---|---|
 | 1 | Tool manifest format · `search_tools` over pgvector · basic gateway with retry/backoff |
-| 2 | First connector exposed through PDS with 3–5 semantic tools · end-to-end trace |
+| 2 | First connector exposed through PDS with 3-5 semantic tools · end-to-end trace |
 | 3 | Per-tenant session cache · audit log · first internal consumer |
 | 4 | Workflow-scoped packages · second and third agent consumers |
 | 5 | Second connector (different backend), proving cross-system semantic-tool abstraction |
@@ -188,11 +188,11 @@ See [SPEC.md](SPEC.md#build-sequence) for details.
 
 ## Who this is for
 
-- **Enterprise platform teams** wiring AI agents into their own ERP / CRM / data warehouse / lakehouse — when the prototype that worked on one schema chokes on the full production catalog
-- **B2B integration teams** building agent-driven workflows across customer or supplier data — when one connector becomes ten and tool catalogs explode
-- **Enterprise architects and CTOs** evaluating MCP for production rollout — this is the missing layer above the protocol
-- **AI engineers** building agent systems against high-volume enterprise data — the discipline that keeps agents coherent at 100+ tools and millions of records
-- **Buyers** of AI vendors — the questions to ask vendors who claim to scale ("Do you progressively discover tools? Is there a gateway? Where's tenant isolation enforced?")
+- **Enterprise platform teams** wiring AI agents into their own ERP / CRM / data warehouse / lakehouse, when the prototype that worked on one schema chokes on the full production catalog
+- **B2B integration teams** building agent-driven workflows across customer or supplier data, when one connector becomes ten and tool catalogs explode
+- **Enterprise architects and CTOs** evaluating MCP for production rollout, this is the missing layer above the protocol
+- **AI engineers** building agent systems against high-volume enterprise data, the discipline that keeps agents coherent at 100+ tools and millions of records
+- **Buyers** of AI vendors, the questions to ask vendors who claim to scale ("Do you progressively discover tools? Is there a gateway? Where's tenant isolation enforced?")
 
 ## What this is not
 
@@ -212,15 +212,15 @@ curl -fsSL https://raw.githubusercontent.com/drewmattie-code/Progressive-Discove
 
 After install, the skill auto-activates whenever you ask Claude about MCP at scale, tool catalog management, agent-to-enterprise integration, or any of the other triggering contexts. It diagnoses which of the four documented failure modes you're hitting and recommends which of the 10 principles to apply.
 
-Works in Claude Code natively. The SKILL.md format is portable — drop it into Cursor, Codex, or any agent that supports the convention. See [`dist/skills/README.md`](dist/skills/README.md) for client-specific install paths.
+Works in Claude Code natively. The SKILL.md format is portable. Drop it into Cursor, Codex, or any agent that supports the convention. See [`dist/skills/README.md`](dist/skills/README.md) for client-specific install paths.
 
 ## Examples
 
 The [`examples/`](examples/) directory has concrete artifacts:
 
-- [`tool-manifest.example.json`](examples/tool-manifest.example.json) — what a semantic-entity tool looks like with full SLA metadata
-- [`search-tools-sketch.py`](examples/search-tools-sketch.py) — minimal sketch of how `search_tools` retrieval works
-- [`action-menu.md`](examples/action-menu.md) — UI pattern for curated invocation (principle #9)
+- [`tool-manifest.example.json`](examples/tool-manifest.example.json): what a semantic-entity tool looks like with full SLA metadata
+- [`search-tools-sketch.py`](examples/search-tools-sketch.py): minimal sketch of how `search_tools` retrieval works
+- [`action-menu.md`](examples/action-menu.md): UI pattern for curated invocation (principle #9)
 
 ## Citing this work
 
@@ -234,8 +234,8 @@ Issues, examples, implementation reports, and connector patterns welcome. See [C
 
 ## License
 
-- **Spec, documentation, diagrams** — [Creative Commons Attribution 4.0 (CC BY 4.0)](LICENSE-CC-BY-4.0). Use it, adapt it, build commercial products on top — credit the source.
-- **Code samples and examples** — [MIT](LICENSE-MIT).
+- **Spec, documentation, diagrams**: [Creative Commons Attribution 4.0 (CC BY 4.0)](LICENSE-CC-BY-4.0). Use it, adapt it, build commercial products on top. Credit the source.
+- **Code samples and examples**: [MIT](LICENSE-MIT).
 
 See [LICENSE](LICENSE) for the summary.
 

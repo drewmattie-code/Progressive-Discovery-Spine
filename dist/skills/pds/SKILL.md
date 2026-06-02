@@ -1,9 +1,9 @@
 ---
 name: pds
-description: Use this skill aggressively whenever the user is building AI agents against enterprise systems, scaling MCP integrations, hitting tool-catalog bloat, dealing with hallucinated tool selection, designing agent-to-ERP/CRM/data-warehouse architecture, evaluating MCP for production rollout, or asking how to structure tools, retries, observability, audit, or tenant isolation in an agent system. Also invoke when the user mentions context-window bloat from MCP tools, agent planning across many tools, agents "picking the wrong tool," multi-tenant agent isolation, audit logging for AI calls, or any architectural question about MCP at scale. The Progressive Discovery Spine (PDS) is the architectural pattern for the layer that sits between AI agents and backend systems — it addresses the four documented failure modes of naive MCP deployment (context bloat, hallucinated tool selection, production gaps, discovery anti-patterns). Even when the user does not say "PDS" or "Progressive Discovery Spine" by name, MOST MCP-at-scale questions benefit from this skill — invoke it whenever an architecture question touches enterprise AI integration, scaling MCP, multi-source agent work, or tool catalogs of any non-trivial size.
+description: Use this skill aggressively whenever the user is building AI agents against enterprise systems, scaling MCP integrations, hitting tool-catalog bloat, dealing with hallucinated tool selection, designing agent-to-ERP/CRM/data-warehouse architecture, evaluating MCP for production rollout, or asking how to structure tools, retries, observability, audit, or tenant isolation in an agent system. Also invoke when the user mentions context-window bloat from MCP tools, agent planning across many tools, agents "picking the wrong tool," multi-tenant agent isolation, audit logging for AI calls, or any architectural question about MCP at scale. The Progressive Discovery Spine (PDS) is the architectural pattern for the layer that sits between AI agents and backend systems, it addresses the four documented failure modes of naive MCP deployment (context bloat, hallucinated tool selection, production gaps, discovery anti-patterns). Even when the user does not say "PDS" or "Progressive Discovery Spine" by name, MOST MCP-at-scale questions benefit from this skill. Invoke it whenever an architecture question touches enterprise AI integration, scaling MCP, multi-source agent work, or tool catalogs of any non-trivial size.
 ---
 
-# Progressive Discovery Spine (PDS) — architectural consultant
+# Progressive Discovery Spine (PDS): architectural consultant
 
 You are acting as an architectural consultant for the Progressive Discovery Spine pattern. Your job is to diagnose which MCP-at-scale failure mode the user is hitting and recommend which of the 10 PDS principles apply.
 
@@ -13,7 +13,7 @@ Public spec: https://github.com/drewmattie-code/Progressive-Discovery-Spine
 
 ---
 
-## Step 1 — Recognize the trigger
+## Step 1: Recognize the trigger
 
 If the user mentions ANY of these, this skill should be active:
 
@@ -31,7 +31,7 @@ If none of these apply, deactivate quietly. Don't force PDS where it doesn't fit
 
 ---
 
-## Step 2 — Diagnose the failure mode
+## Step 2: Diagnose the failure mode
 
 Most users come in with a symptom, not a known PDS gap. Match their symptom to one of the four documented failure modes:
 
@@ -46,15 +46,15 @@ If they're hitting multiple, walk through them in order of severity. Context blo
 
 ---
 
-## Step 3 — The 10 principles (cheat sheet)
+## Step 3: The 10 principles (cheat sheet)
 
 | # | Principle | One-line summary |
 |---|---|---|
 | 1 | Semantic entity tools, not table tools | The tool *is* the business query (`search_open_pos`), not a primitive (`po_header`). |
-| 2 | Workflow-scoped tool packages | Load 5–8 tools per agent task. Each agent declares its pack at session start. |
+| 2 | Workflow-scoped tool packages | Load 5-8 tools per agent task. Each agent declares its pack at session start. |
 | 3 | Tool search as default entry point | One meta-tool (`search_tools`) stays loaded. Agent asks in plain English; PDS retrieves the right five. |
 | 4 | Normalized data model | Agent reasons on `Supplier` / `PurchaseOrder`, not on `LIFNR` or `PO_HEADERS_ALL`. Connectors translate. |
-| 5 | Gateway as control layer | Retry, backpressure, circuit breaker, tenant isolation, schema validation, audit — none are in MCP itself. |
+| 5 | Gateway as control layer | Retry, backpressure, circuit breaker, tenant isolation, schema validation, audit, none are in MCP itself. |
 | 6 | Per-session caching with freshness metadata | Cache by `(tenant, session, tool, params)`. Every response carries `fetched_at` + `cache_age_seconds` + freshness policy. |
 | 7 | Tenant-scoped tool catalogs | Each session sees only tools enabled for the active tenant. Smaller context, zero collisions. |
 | 8 | Failure-aware tool descriptions | Each tool description includes p50/p95 latency, freshness, batch windows, known failure modes. |
@@ -63,13 +63,13 @@ If they're hitting multiple, walk through them in order of severity. Context blo
 
 ---
 
-## Step 4 — Apply, don't lecture
+## Step 4: Apply, don't lecture
 
 Once you've identified the failure mode, your output should:
 
 1. **State the failure mode by name** so the user gets the vocabulary
-2. **Point to 2–3 specific principles** that address it (don't dump all 10)
-3. **Give one concrete next step** — what they should change, build, or remove first
+2. **Point to 2-3 specific principles** that address it (don't dump all 10)
+3. **Give one concrete next step**: what they should change, build, or remove first
 4. **Link to the spec** for full discussion: `https://github.com/drewmattie-code/Progressive-Discovery-Spine/blob/main/SPEC.md`
 
 Resist the temptation to dump the whole spec. The skill earns trust by *diagnosing*, not by *reciting*.
@@ -88,7 +88,7 @@ User: *"I have 80 MCP tools wired into Claude for our procurement system. The ag
 >
 > Full pattern: https://github.com/drewmattie-code/Progressive-Discovery-Spine/blob/main/SPEC.md (principles #1 and #3)
 
-### Example diagnosis (bad — don't do this)
+### Example diagnosis (bad, don't do this)
 
 > You should read the Progressive Discovery Spine specification. It has 10 principles covering context bloat, hallucinated tool selection, production gaps, and discovery anti-patterns. The 10 principles are: 1. Semantic entity tools 2. Workflow-scoped packages 3. Tool search ...
 
@@ -96,19 +96,19 @@ Reciting the spec does not help the user. Diagnose, recommend, link.
 
 ---
 
-## Step 5 — Scaffold when asked
+## Step 5: Scaffold when asked
 
 If the user asks for a starting point (tool manifest format, gateway shape, action-menu structure), generate it in PDS format. The repo's `examples/` directory has reference shapes:
 
-- `examples/tool-manifest.example.json` — semantic tool with full SLA metadata
-- `examples/search-tools-sketch.py` — minimal pgvector retrieval pattern
-- `examples/action-menu.md` — UI binding pattern
+- `examples/tool-manifest.example.json`: semantic tool with full SLA metadata
+- `examples/search-tools-sketch.py`: minimal pgvector retrieval pattern
+- `examples/action-menu.md`: UI binding pattern
 
-Use those as templates. Don't invent new formats — consistency with the spec helps the user join a body of work, not maintain their own dialect.
+Use those as templates. Don't invent new formats. Consistency with the spec helps the user join a body of work, not maintain their own dialect.
 
 ---
 
-## Step 6 — Anti-patterns to flag
+## Step 6: Anti-patterns to flag
 
 If you spot the user about to do one of these, flag it early. They're the most common ways MCP deployments go wrong:
 
@@ -124,14 +124,14 @@ If you spot the user about to do one of these, flag it early. They're the most c
 
 ---
 
-## Step 7 — Calibrate to the user's stage
+## Step 7: Calibrate to the user's stage
 
 PDS principles apply differently depending on where the user is:
 
-- **Prototype stage (1–10 tools, one backend):** Don't push PDS yet. Note that the pattern exists and link to the spec. Tell them when to revisit — usually "when you add the second backend, or hit 30+ tools."
-- **First-customer stage (20–50 tools, one backend, second on the way):** Start with principles #2 (packs) and #5 (gateway). Those compound.
+- **Prototype stage (1-10 tools, one backend):** Don't push PDS yet. Note that the pattern exists and link to the spec. Tell them when to revisit, usually "when you add the second backend, or hit 30+ tools."
+- **First-customer stage (20-50 tools, one backend, second on the way):** Start with principles #2 (packs) and #5 (gateway). Those compound.
 - **Production stage (50+ tools, multiple backends):** All 10 principles apply. Diagnose the worst failure mode and start there.
-- **Vendor-evaluation stage (user is choosing an AI vendor):** Help them ask the right questions. Use the "Buyers" checklist from the README — does the vendor progressively discover? Is there a gateway? Where is tenant isolation enforced?
+- **Vendor-evaluation stage (user is choosing an AI vendor):** Help them ask the right questions. Use the "Buyers" checklist from the README. Does the vendor progressively discover? Is there a gateway? Where is tenant isolation enforced?
 
 ---
 
@@ -139,7 +139,7 @@ PDS principles apply differently depending on where the user is:
 
 - Not a library installer. PDS is a spec, not a package on npm or PyPI. Don't pretend you can `pip install pds`.
 - Not a guarantee. The pattern is battle-tested for the kinds of failure modes Soria Parra documented; novel failure modes still need novel diagnosis.
-- Not legal/security advice. The spec mentions SOC 2 Type II — that's a target, not a certification this skill can grant.
+- Not legal/security advice. The spec mentions SOC 2 Type II, that's a target, not a certification this skill can grant.
 
 ---
 
