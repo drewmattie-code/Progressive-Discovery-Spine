@@ -201,7 +201,7 @@ PDS is one spec in a catalog of nine, each naming a distinct architectural conce
 | **AGS** Agent Governance Spine | Deterministic governance, identity, audit | Public |
 | **DCS** Durable Context Spine | Durable state and memory across sessions and time | Public |
 | **GDS** Grounded Data Spine | A canonical semantic model (text-to-metric) plus data-level entitlements | Private (forthcoming) |
-| **ARS** Agent Registry Spine | The inventory substrate: one system of record for every agentic asset that discovery reads from and governance enforces against | Private (forthcoming) |
+| **ARS** Agent Registry Spine | The system of record layer for every agentic asset that discovery reads from and governance enforces against | Private (forthcoming) |
 | **SRS** Sovereign Runtime Spine | The execution substrate: the sovereign, first-party agent runtime that first-party agents run on | Private (forthcoming) |
 
 **Where PDS sits relative to DCS.** PDS scopes tools per task; DCS scopes durable knowledge per session. The two are the discovery and persistence halves of the same context-economy discipline.

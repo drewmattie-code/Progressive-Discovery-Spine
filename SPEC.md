@@ -327,7 +327,7 @@ PDS is one spec in a catalog of nine, each naming a distinct architectural conce
 - **AGS** (Agent Governance Spine): deterministic governance, identity, audit. Public.
 - **DCS** (Durable Context Spine): durable state and memory across sessions and time. Public. PDS scopes tools per task; DCS scopes durable knowledge per session.
 - **GDS** (Grounded Data Spine): a canonical semantic model (text-to-metric) plus data-level entitlements. Private (forthcoming).
-- **ARS** (Agent Registry Spine): the inventory substrate, one system of record for every agentic asset that discovery reads from and governance enforces against. Private (forthcoming).
+- **ARS** (Agent Registry Spine): the system of record layer for every agentic asset that discovery reads from and governance enforces against. Private (forthcoming).
 - **SRS** (Sovereign Runtime Spine): the execution substrate, the sovereign, first-party agent runtime that first-party agents run on. Private (forthcoming).
 
 The catalog supports ten-way failure attribution: bad customer or tool data routes to PDS; bad world data to ESF; bad reasoning to the ACS Planner; bad evaluation to the ACS Evaluator; bad scoring to CRI; bad governance to AGS; bad continuity to DCS; bad grounding to GDS; bad or missing registry to ARS; bad or unbounded execution to SRS.
