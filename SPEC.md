@@ -318,7 +318,7 @@ PDS is compatible with, and built on top of, these standards:
 
 ### 7.1: The Spine catalog and failure attribution
 
-PDS is one spec in a catalog of eight, each naming a distinct architectural concern in production agentic systems:
+PDS is one spec in a catalog of nine, each naming a distinct architectural concern in production agentic systems:
 
 - **PDS** (Progressive Discovery Spine): tool discovery. Public.
 - **ACS** (Adversarial Coordination Spine): multi-agent coordination. Public.
@@ -328,8 +328,9 @@ PDS is one spec in a catalog of eight, each naming a distinct architectural conc
 - **DCS** (Durable Context Spine): durable state and memory across sessions and time. Public. PDS scopes tools per task; DCS scopes durable knowledge per session.
 - **GDS** (Grounded Data Spine): a canonical semantic model (text-to-metric) plus data-level entitlements. Private (forthcoming).
 - **ARS** (Agent Registry Spine): the inventory substrate, one system of record for every agentic asset that discovery reads from and governance enforces against. Private (forthcoming).
+- **SRS** (Sovereign Runtime Spine): the execution substrate, the sovereign, first-party agent runtime that first-party agents run on. Private (forthcoming).
 
-The catalog supports nine-way failure attribution: bad customer or tool data routes to PDS; bad world data to ESF; bad reasoning to the ACS Planner; bad evaluation to the ACS Evaluator; bad scoring to CRI; bad governance to AGS; bad continuity to DCS; bad grounding to GDS; bad or missing registry to ARS.
+The catalog supports ten-way failure attribution: bad customer or tool data routes to PDS; bad world data to ESF; bad reasoning to the ACS Planner; bad evaluation to the ACS Evaluator; bad scoring to CRI; bad governance to AGS; bad continuity to DCS; bad grounding to GDS; bad or missing registry to ARS; bad or unbounded execution to SRS.
 
 ---
 
@@ -368,7 +369,7 @@ The catalog supports nine-way failure attribution: bad customer or tool data rou
 This specification follows semantic versioning. Breaking changes to the conceptual model bump the major version; new principles or refinements bump the minor. Editorial fixes bump the patch.
 
 - **v1.0**: initial public release (2026-05-24)
-- **v1.1** (2026-06-02): added industry-convergence and productization citations (Anthropic Knowledge Work Plugins, Claude-Mem, Nango, Microsoft Agent Governance Toolkit, the MCP server registry, Composio, MuleSoft Agent Fabric, UiPath) and the harness-engineering convergence (SWE-agent ACI, OpenAI Harness Engineering, Garry Tan skill packs) that independently named progressive disclosure as Pattern #1; added the eight-spec Spine catalog cross-reference (introducing DCS, GDS, and ARS as siblings) and the nine-way failure-attribution dictionary. No changes to the ten principles.
+- **v1.1** (2026-06-02): added industry-convergence and productization citations (Anthropic Knowledge Work Plugins, Claude-Mem, Nango, Microsoft Agent Governance Toolkit, the MCP server registry, Composio, MuleSoft Agent Fabric, UiPath) and the harness-engineering convergence (SWE-agent ACI, OpenAI Harness Engineering, Garry Tan skill packs) that independently named progressive disclosure as Pattern #1; added the nine-spec Spine catalog cross-reference (introducing DCS, GDS, ARS, and SRS as siblings) and the ten-way failure-attribution dictionary. No changes to the ten principles.
 
 ---
 
