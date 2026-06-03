@@ -6,7 +6,7 @@
 
 [![License: CC BY 4.0](https://img.shields.io/badge/spec-CC_BY_4.0-blue?style=flat-square)](LICENSE-CC-BY-4.0)
 [![License: MIT](https://img.shields.io/badge/code-MIT-green?style=flat-square)](LICENSE-MIT)
-[![Status: v1.0](https://img.shields.io/badge/status-v1.0-0F766E?style=flat-square)](SPEC.md)
+[![Status: v1.1](https://img.shields.io/badge/status-v1.1-0F766E?style=flat-square)](SPEC.md)
 [![Claude Skill](https://img.shields.io/badge/claude--skill-available-7C3AED?style=flat-square)](dist/skills/pds/SKILL.md)
 
 </div>
@@ -132,6 +132,32 @@ PDS is not a novel invention. It's a formalization of a pattern that production 
 
 **Matthew Kruczek: "Progressive Disclosure MCP" whitepaper (January 2026).** Kruczek formalized the pattern with measured benchmarks: "Production implementations report 85-100x reductions in token usage while maintaining or improving tool selection accuracy." His central claim aligns with PDS's framing: "Every major implementation pushing MCP to enterprise scale has independently converged on progressive disclosure as the solution." [Whitepaper](https://matthewkruczek.ai/blog/progressive-disclosure-mcp-servers.html)
 
+**Anthropic: Knowledge Work Plugins marketplace.** Anthropic ships PDS-pattern plugins as their canonical productized form. Each plugin is a workflow-scoped pack (PDS principle #2) bundling skills (#3), MCP connectors (#7), and slash commands (#9). "Every plugin follows the same structure: skills, commands, connectors, every component is file-based (markdown and JSON), no code, no infrastructure, no build steps." Cowork ([claude.com/product/cowork](https://claude.com/product/cowork)) is the buyer-facing surface; the plugin format is shared with Claude Code. [Source](https://github.com/anthropics/knowledge-work-plugins)
+
+**Claude-Mem: persistent memory with explicit Progressive Disclosure philosophy.** Open-source Claude Code memory system (~v6.5.0, Apache 2.0) whose published architecture page is titled "Progressive Disclosure": "MCP search tools follow a token-efficient 3-layer workflow, search (compact index with IDs), timeline (chronological context), get_observations (full details only for filtered IDs)." The author reports ~10x token savings by filtering before fetching. This is PDS principle #3 applied to memory artifacts rather than enterprise tools, and the same vocabulary. [Source](https://github.com/thedotmack/claude-mem) · [Philosophy page](https://docs.claude-mem.ai/progressive-disclosure)
+
+**Nango: pre-MCP gateway pattern at production scale.** Open-source integration platform (Elastic License v2) used in production by Replit, Ramp, Mercor, and hundreds of others. Its three primitives (Auth, Proxy, Functions) map 1:1 to PDS principles #5 (gateway as control layer) and #1 (semantic-entity tools): "The runtime provides per-tenant isolation, elastic scaling, automatic retries, and rate-limit handling." Nango solved the same architectural problem PDS describes before MCP existed, with their own protocol. Their billions-of-API-requests scale is market validation that the gateway pattern works at production. [Source](https://github.com/NangoHQ/nango)
+
+**Microsoft: Agent Governance Toolkit.** Microsoft's MIT-licensed governance kernel for autonomous AI agents, multi-language (Python/TS/.NET/Rust/Go), covering OWASP Agentic Top 10 10/10. Productizes PDS principle #5 (gateway as control layer) with deterministic policy denial, SPIFFE/DID/mTLS identity, and tamper-evident audit: "Actions the AGT kernel denies are not 'unlikely.' They are structurally impossible." Microsoft anchors the empirical case in JailbreakBench (Chao et al., NeurIPS 2024), where adaptive attacks reach near-100% ASR on frontier safety-aligned models, concluding that prompt-layer defenses leak double-digit residual ASR and deterministic enforcement is the only viable substrate. [Source](https://github.com/microsoft/agent-governance-toolkit)
+
+**Composio: productized PDS at scale.** Commercial integration platform with 1000+ pre-integrated tools, explicit tool-search API, per-toolkit auth, context management, and a sandboxed workbench. Maps tightly to PDS principle #3 (tool search as default entry point) productized as a public API, and principle #7 (gateway as control layer) productized as auth-per-toolkit. The closest competitor to the architectural pattern PDS describes; citing it positions PDS as the portable open spec vs Composio's productized commercial stack. [Source](https://github.com/ComposioHQ/composio)
+
+**MuleSoft Agent Fabric (Salesforce).** The Agent Registry (built on Anypoint Exchange) is a centralized, continuously-scanned catalog for discovering agents, MCP servers, and AI assets, and an MCP Bridge exposes existing APIs as agent-usable tools. A major-vendor productization of PDS-style progressive discovery and tool-surface exposure. [Source](https://www.mulesoft.com/ai/agent-fabric)
+
+**UiPath (Integration Service + activity library).** A large, governed connector and tool catalog agents draw on inside an enterprise automation platform. The curated tool surface PDS specifies the progressive-discovery discipline for. [Source](https://www.uipath.com/platform/agentic-automation)
+
+### Harness-engineering convergence: progressive disclosure as Pattern #1
+
+The agent-harness field independently named "progressive disclosure" as the first repeating design pattern of every serious harness. This is PDS's exact thesis, almost the exact term.
+
+**SWE-agent: Agent-Computer Interfaces (Princeton NLP).** A purpose-built tool interface, capped search results, stateful line-numbered viewers, stale-observation summarization, produced a 64% relative improvement over a raw shell with the same model on the same task. The empirical case that PDS principle #3 (scoped/capped tool surfaces over raw access) is load-bearing, not cosmetic. [arXiv:2405.15793](https://arxiv.org/abs/2405.15793)
+
+**OpenAI: Harness Engineering.** OpenAI's agent-first development model uses a short (~100-line) `AGENTS.md` as a map pointing to a structured `docs/` system of record, calling the technique progressive disclosure: "agents start with a small, stable entry point and are taught where to look next, rather than being overwhelmed upfront." PDS's per-task tool scoping is the same economics on the tool axis. [Source](https://openai.com/index/harness-engineering/)
+
+**Harness-engineering synthesis.** The cross-team synthesis of agent-harness practice names progressive disclosure as the first repeating design pattern across SWE-agent, Anthropic's Claude Code harness, and OpenAI's Codex harness, the same minimum-context-plus-pointers economics PDS specifies for the tool surface. Its thesis (execution is a commodity; the moat is the environment and harness) is the Spine thesis.
+
+**Garry Tan: skill packs as the unit of agentic capability.** A widely-read essay argues the artifact is no longer lines of code but the skill pack: a tested, reusable markdown skill plus minimal code, a unit test, an LLM eval, an integration test, and a resolver that auto-invokes the skill when relevant. The skill pack and the harness are named as the new systems primitives of agentic engineering, PDS's progressive-discovery-of-capabilities thesis carried to the packaging-and-resolution layer, with tests and evals as the discipline that separates it from vibe coding.
+
 ### Foundational sources from protocol authors
 
 **Anthropic: Agent Skills design principle.** Anthropic's own Agent Skills design uses progressive discovery as the core architectural principle: skills load metadata first, full instructions on demand, supplementary files only when needed. The mechanism is identical to PDS principle #3 (tool search as default entry point), applied to skills instead of MCP tools. [Agent Skills overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview) · [Anthropic engineering blog: Equipping agents for the real world with Agent Skills](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
@@ -144,6 +170,8 @@ PDS is not a novel invention. It's a formalization of a pattern that production 
 
 **Model Context Protocol specification.** The protocol PDS sits above. [modelcontextprotocol.io](https://modelcontextprotocol.io)
 
+**modelcontextprotocol/servers: the canonical MCP server registry.** The reference catalog of MCP servers maintained by the protocol authors (Anthropic-led, multi-vendor contributions). PDS's progressive-discovery semantics presuppose an MCP server ecosystem to expose the discoverable surface; this is that ecosystem's center of gravity. At 86k+ stars it is the de facto registry every PDS-compliant implementation routes through. [Source](https://github.com/modelcontextprotocol/servers)
+
 ### What PDS contributes
 
 The sources above document INDIVIDUAL implementations and isolated principles. PDS contributes:
@@ -155,6 +183,37 @@ The sources above document INDIVIDUAL implementations and isolated principles. P
 5. A **portable, citable specification** under CC BY 4.0: adopt, adapt, build commercial products on top, with attribution
 
 If your team is independently converging on this pattern (as Amazon, Speakeasy, TrueFoundry, and others already have), PDS gives you a vocabulary, a checklist, and a published artifact you can hand to your peers.
+
+## The Spine catalog
+
+PDS is one spec in a catalog of eight, each naming a distinct architectural concern in production agentic systems. The catalog lets you attribute a failure to the layer that owns it rather than blaming "the AI."
+
+| Spec | Concern | Status |
+|---|---|---|
+| **PDS** Progressive Discovery Spine | Tool discovery | Public |
+| **ACS** Adversarial Coordination Spine | Multi-agent coordination | Public |
+| **ESF** External Signal Fabric | External-world signals | Public |
+| **CRI** Composite Risk Index | Composite risk scoring | Private (patent-preservation) |
+| **AGS** Agent Governance Spine | Deterministic governance, identity, audit | Public |
+| **DCS** Durable Context Spine | Durable state and memory across sessions and time | Public |
+| **GDS** Grounded Data Spine | A canonical semantic model (text-to-metric) plus data-level entitlements | Private (forthcoming) |
+| **ARS** Agent Registry Spine | The inventory substrate: one system of record for every agentic asset that discovery reads from and governance enforces against | Private (forthcoming) |
+
+**Where PDS sits relative to DCS.** PDS scopes tools per task; DCS scopes durable knowledge per session. The two are the discovery and persistence halves of the same context-economy discipline.
+
+**Nine-way failure attribution.** When an agent system misbehaves, the catalog tells you which layer to fix:
+
+| Symptom | Owning layer |
+|---|---|
+| Bad customer / tool data | PDS |
+| Bad world data | ESF |
+| Bad reasoning | ACS Planner |
+| Bad evaluation | ACS Evaluator |
+| Bad scoring | CRI |
+| Bad governance | AGS |
+| Bad continuity | DCS |
+| Bad grounding | GDS |
+| Bad or missing registry | ARS |
 
 ## What good looks like (target SLAs)
 

@@ -1,6 +1,6 @@
 # Progressive Discovery Spine: Specification
 
-> **Status:** v1.0 · Drew Mattie · 2026-05-24
+> **Status:** v1.1 · Drew Mattie · 2026-06-02
 > **License:** [CC BY 4.0](LICENSE-CC-BY-4.0)
 
 This is the full technical specification for the Progressive Discovery Spine pattern. The [README](README.md) is the elevator pitch; this document is the build reference.
@@ -316,14 +316,48 @@ PDS is compatible with, and built on top of, these standards:
 - **OpenTelemetry**: Gateway observability emits OTel-compatible traces.
 - **SOC 2 / ISO 27001 audit requirements**: The gateway's audit log is designed to satisfy these.
 
+### 7.1: The Spine catalog and failure attribution
+
+PDS is one spec in a catalog of eight, each naming a distinct architectural concern in production agentic systems:
+
+- **PDS** (Progressive Discovery Spine): tool discovery. Public.
+- **ACS** (Adversarial Coordination Spine): multi-agent coordination. Public.
+- **ESF** (External Signal Fabric): external-world signals. Public.
+- **CRI** (Composite Risk Index): composite risk scoring. Private (patent-preservation).
+- **AGS** (Agent Governance Spine): deterministic governance, identity, audit. Public.
+- **DCS** (Durable Context Spine): durable state and memory across sessions and time. Public. PDS scopes tools per task; DCS scopes durable knowledge per session.
+- **GDS** (Grounded Data Spine): a canonical semantic model (text-to-metric) plus data-level entitlements. Private (forthcoming).
+- **ARS** (Agent Registry Spine): the inventory substrate, one system of record for every agentic asset that discovery reads from and governance enforces against. Private (forthcoming).
+
+The catalog supports nine-way failure attribution: bad customer or tool data routes to PDS; bad world data to ESF; bad reasoning to the ACS Planner; bad evaluation to the ACS Evaluator; bad scoring to CRI; bad governance to AGS; bad continuity to DCS; bad grounding to GDS; bad or missing registry to ARS.
+
 ---
 
 ## 8. References
+
+### Protocol authors and foundational sources
 
 - David Soria Parra, "The Future of MCP," MCP Dev Summit NA 2026 ([YouTube](https://youtu.be/v3Fr2JR47KA))
 - Shiftmag interview, "MCP co-creator on What Breaks MCP at Scale" ([article](https://shiftmag.dev/mcp-co-creator-explains-why-mcp-needs-more-than-the-protocol-to-scale-9041/))
 - MCP Dev Summit NA 2026 recap ([AAIF](https://aaif.io/blog/mcp-is-now-enterprise-infrastructure-everything-that-happened-at-mcp-dev-summit-north-america-2026/))
 - Model Context Protocol specification ([modelcontextprotocol.io](https://modelcontextprotocol.io))
+- modelcontextprotocol/servers, the canonical MCP server registry, Anthropic-led ([GitHub](https://github.com/modelcontextprotocol/servers))
+
+### Industry convergence and productization (added in v1.1)
+
+- Anthropic, Knowledge Work Plugins marketplace, plugins as file-based workflow-scoped packs ([GitHub](https://github.com/anthropics/knowledge-work-plugins)) · Cowork ([claude.com/product/cowork](https://claude.com/product/cowork))
+- Claude-Mem, persistent memory with an explicit "Progressive Disclosure" architecture page ([GitHub](https://github.com/thedotmack/claude-mem) · [philosophy page](https://docs.claude-mem.ai/progressive-disclosure))
+- Nango, pre-MCP gateway pattern (Auth / Proxy / Functions) at billions-of-requests production scale ([GitHub](https://github.com/NangoHQ/nango))
+- Microsoft, Agent Governance Toolkit, deterministic policy denial plus SPIFFE/DID/mTLS identity and tamper-evident audit ([GitHub](https://github.com/microsoft/agent-governance-toolkit))
+- Composio, 1000+ pre-integrated tools with explicit tool-search API and per-toolkit auth ([GitHub](https://github.com/ComposioHQ/composio))
+- MuleSoft Agent Fabric (Salesforce), Agent Registry on Anypoint Exchange plus MCP Bridge ([mulesoft.com](https://www.mulesoft.com/ai/agent-fabric))
+- UiPath, Integration Service and activity library as a governed connector and tool catalog ([uipath.com](https://www.uipath.com/platform/agentic-automation))
+
+### Harness-engineering convergence (added in v1.1)
+
+- Yang, Jimenez et al., "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering," NeurIPS 2024 ([arXiv:2405.15793](https://arxiv.org/abs/2405.15793))
+- OpenAI, "Harness Engineering," progressive disclosure via a short `AGENTS.md` map over a `docs/` system of record ([openai.com](https://openai.com/index/harness-engineering/))
+- Garry Tan, skill packs as the unit of agentic capability (tested markdown skill plus code, unit test, LLM eval, integration test, and resolver)
 
 ---
 
@@ -332,6 +366,7 @@ PDS is compatible with, and built on top of, these standards:
 This specification follows semantic versioning. Breaking changes to the conceptual model bump the major version; new principles or refinements bump the minor. Editorial fixes bump the patch.
 
 - **v1.0**: initial public release (2026-05-24)
+- **v1.1** (2026-06-02): added industry-convergence and productization citations (Anthropic Knowledge Work Plugins, Claude-Mem, Nango, Microsoft Agent Governance Toolkit, the MCP server registry, Composio, MuleSoft Agent Fabric, UiPath) and the harness-engineering convergence (SWE-agent ACI, OpenAI Harness Engineering, Garry Tan skill packs) that independently named progressive disclosure as Pattern #1; added the eight-spec Spine catalog cross-reference (introducing DCS, GDS, and ARS as siblings) and the nine-way failure-attribution dictionary. No changes to the ten principles.
 
 ---
 
