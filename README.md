@@ -146,6 +146,10 @@ PDS is not a novel invention. It's a formalization of a pattern that production 
 
 **UiPath (Integration Service + activity library).** A large, governed connector and tool catalog agents draw on inside an enterprise automation platform. The curated tool surface PDS specifies the progressive-discovery discipline for. [Source](https://www.uipath.com/platform/agentic-automation)
 
+**AWS Bedrock AgentCore Gateway.** AgentCore Gateway turns existing APIs and AWS Lambda functions into agent-compatible MCP tools, connects to existing MCP servers, and integrates third-party business tools, with the managed Code Interpreter and Browser as first-party tools. A major-cloud productization of the curated, mediated tool surface PDS describes (AWS, generally available October 2025). [Source](https://aws.amazon.com/blogs/machine-learning/amazon-bedrock-agentcore-is-now-generally-available/)
+
+**Palantir Foundry AIP.** AIP exposes a curated, typed tool surface to the LLM (object-query data tools, function tools, action tools over the Ontology). A governed, curated tool-discovery substrate; PDS adds the search-first, open-universe discipline Ontology-scoping does not require. [Source](https://www.palantir.com/docs/foundry/agent-studio/tools)
+
 ### Harness-engineering convergence: progressive disclosure as Pattern #1
 
 The agent-harness field independently named "progressive disclosure" as the first repeating design pattern of every serious harness. This is PDS's exact thesis, almost the exact term.

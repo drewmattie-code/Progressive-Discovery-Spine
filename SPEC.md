@@ -352,6 +352,8 @@ The catalog supports nine-way failure attribution: bad customer or tool data rou
 - Composio, 1000+ pre-integrated tools with explicit tool-search API and per-toolkit auth ([GitHub](https://github.com/ComposioHQ/composio))
 - MuleSoft Agent Fabric (Salesforce), Agent Registry on Anypoint Exchange plus MCP Bridge ([mulesoft.com](https://www.mulesoft.com/ai/agent-fabric))
 - UiPath, Integration Service and activity library as a governed connector and tool catalog ([uipath.com](https://www.uipath.com/platform/agentic-automation))
+- AWS Bedrock AgentCore Gateway, APIs and Lambda functions turned into MCP tools plus managed Code Interpreter and Browser, the mediated tool surface ([AWS](https://aws.amazon.com/blogs/machine-learning/amazon-bedrock-agentcore-is-now-generally-available/))
+- Palantir Foundry AIP, a curated typed tool surface over the Ontology (data, function, and action tools) ([palantir.com](https://www.palantir.com/docs/foundry/agent-studio/tools))
 
 ### Harness-engineering convergence (added in v1.1)
 
