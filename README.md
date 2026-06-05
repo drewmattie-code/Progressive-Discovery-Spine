@@ -286,6 +286,9 @@ The [`examples/`](examples/) directory has concrete artifacts:
 - [`tool-manifest.example.json`](examples/tool-manifest.example.json): what a semantic-entity tool looks like with full SLA metadata
 - [`search-tools-sketch.py`](examples/search-tools-sketch.py): minimal sketch of how `search_tools` retrieval works
 - [`action-menu.md`](examples/action-menu.md): UI pattern for curated invocation (principle #9)
+- [`discover.py`](examples/discover.py): a runnable, dependency-free demo of search-first discovery. It builds a ~150-tool catalog, runs `search_tools` to surface only the few tools a task needs, validates against the schemas, and prints the context reduction. Run it with `python3 examples/discover.py`.
+
+Formal contracts live in [`schema/`](schema/): [`tool-manifest.v1.json`](schema/tool-manifest.v1.json) (the semantic-entity tool manifest) and [`tool-search-response.v1.json`](schema/tool-search-response.v1.json) (the top-K search response).
 
 ## Citing this work
 

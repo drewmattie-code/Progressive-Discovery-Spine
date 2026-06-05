@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/drewmattie-code/Progressive-Discovery-Spine/schema/tool-search-response.v1.json",
+  "title": "PDS Tool Search Response",
+  "description": "The response from the single search_tools entry point. Formalizes PDS principle #3: an agent receives the top-K relevant tools for a task, never the full catalog.",
+  "type": "object",
+  "required": ["query", "tenant_id", "catalog_size", "returned", "results"],
+  "additionalProperties": false,
+  "properties": {
+    "query": {"type": "string"},
+    "tenant_id": {"type": "string"},
+    "catalog_size": {
+      "type": "integer",
+      "description": "Total tools available to this tenant, for comparison against returned."
+    },
+    "returned": {
+      "type": "integer",
+      "description": "How many tools were surfaced (top-K). Should be a small number regardless of catalog size."
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description", "score"],
+        "additionalProperties": true,
+        "properties": {
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "score": {"type": "number"},
+          "sla": {"type": "object"}
+        }
+      }
+    }
+  }
+}

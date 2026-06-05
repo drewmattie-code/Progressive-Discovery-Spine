@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/drewmattie-code/Progressive-Discovery-Spine/schema/tool-manifest.v1.json",
+  "title": "PDS Tool Manifest",
+  "description": "Workflow-scoped tool manifest for the Progressive Discovery Spine. One manifest describes one semantic-entity tool an agent can discover and call. Formalizes PDS principle #1 (semantic-entity tools), #2 (workflow-scoped packs), and #7 (tenant-scoped gateway).",
+  "type": "object",
+  "required": ["name", "version", "description", "parameters", "returns", "sla", "tenant_scope"],
+  "additionalProperties": true,
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Semantic entity name (e.g. search_open_pos), not a raw API endpoint."
+    },
+    "version": {
+      "type": "string",
+      "description": "SemVer. The index keeps prior versions active until the new embedding is indexed."
+    },
+    "description": {"type": "string"},
+    "intent_examples": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Natural-language phrasings embedded alongside the description so intent matches discovery."
+    },
+    "parameters": {
+      "type": "object",
+      "description": "JSON Schema describing the tool's input parameters."
+    },
+    "returns": {
+      "type": "object",
+      "description": "Shape of the composed response envelope the tool returns."
+    },
+    "sla": {
+      "type": "object",
+      "description": "Machine-readable SLA so the agent can route around degradation.",
+      "required": ["p95_latency_ms", "freshness_seconds"],
+      "additionalProperties": true,
+      "properties": {
+        "p50_latency_ms": {"type": "number"},
+        "p95_latency_ms": {"type": "number"},
+        "freshness_seconds": {"type": "number"},
+        "cost_units": {"type": "number"},
+        "cache_policy": {"type": "string"}
+      }
+    },
+    "failure_modes": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "tenant_scope": {
+      "type": "object",
+      "required": ["required", "enforced_at"],
+      "additionalProperties": true,
+      "properties": {
+        "required": {"type": "boolean"},
+        "enforced_at": {
+          "type": "string",
+          "enum": ["gateway", "tool", "datastore"]
+        }
+      }
+    },
+    "audit": {"type": "object"},
+    "observability": {"type": "object"}
+  }
+}
