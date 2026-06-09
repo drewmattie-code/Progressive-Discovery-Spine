@@ -6,7 +6,7 @@
 
 [![License: CC BY 4.0](https://img.shields.io/badge/spec-CC_BY_4.0-blue?style=flat-square)](LICENSE-CC-BY-4.0)
 [![License: MIT](https://img.shields.io/badge/code-MIT-green?style=flat-square)](LICENSE-MIT)
-[![Status: v1.1](https://img.shields.io/badge/status-v1.1-0F766E?style=flat-square)](SPEC.md)
+[![Status: v1.2](https://img.shields.io/badge/status-v1.2-0F766E?style=flat-square)](SPEC.md)
 [![Claude Skill](https://img.shields.io/badge/claude--skill-available-7C3AED?style=flat-square)](dist/skills/pds/SKILL.md)
 
 </div>
@@ -149,6 +149,8 @@ PDS is not a novel invention. It's a formalization of a pattern that production 
 **AWS Bedrock AgentCore Gateway.** AgentCore Gateway turns existing APIs and AWS Lambda functions into agent-compatible MCP tools, connects to existing MCP servers, and integrates third-party business tools, with the managed Code Interpreter and Browser as first-party tools. A major-cloud productization of the curated, mediated tool surface PDS describes (AWS, generally available October 2025). [Source](https://aws.amazon.com/blogs/machine-learning/amazon-bedrock-agentcore-is-now-generally-available/)
 
 **Palantir Foundry AIP.** AIP exposes a curated, typed tool surface to the LLM (object-query data tools, function tools, action tools over the Ontology). A governed, curated tool-discovery substrate; PDS adds the search-first, open-universe discipline Ontology-scoping does not require. [Source](https://www.palantir.com/docs/foundry/agent-studio/tools)
+
+**goose and the Agentic AI Foundation (Linux Foundation).** The open-source, MCP-native agent runtime (70+ MCP extensions) was relocated to the Linux Foundation's new Agentic AI Foundation alongside MCP itself and AGENTS.md. The AAIF now stewarding MCP gives the discoverable surface PDS presupposes a neutral-governance home, and AGENTS.md is the same short, stable entry point that points to where to look next that PDS specifies on the tool axis. A foundation-level signal that vendor-neutral progressive discovery is consolidating. [Source](https://github.com/aaif-goose/goose) · [AAIF announcement](https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation)
 
 ### Harness-engineering convergence: progressive disclosure as Pattern #1
 

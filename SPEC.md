@@ -370,6 +370,7 @@ This specification follows semantic versioning. Breaking changes to the conceptu
 
 - **v1.0**: initial public release (2026-05-24)
 - **v1.1** (2026-06-02): added industry-convergence and productization citations (Anthropic Knowledge Work Plugins, Claude-Mem, Nango, Microsoft Agent Governance Toolkit, the MCP server registry, Composio, MuleSoft Agent Fabric, UiPath) and the harness-engineering convergence (SWE-agent ACI, OpenAI Harness Engineering, Garry Tan skill packs) that independently named progressive disclosure as Pattern #1; added the nine-spec Spine catalog cross-reference (introducing DCS, GDS, ARS, and SRS as siblings) and the ten-way failure-attribution dictionary. No changes to the ten principles.
+- **v1.2** (2026-06-08): added the goose and Agentic AI Foundation convergence citation to the README industry-context section. goose (the MCP-native open-source runtime), MCP, and AGENTS.md were brought under the Linux Foundation's new Agentic AI Foundation, a foundation-level signal that the discoverable surface PDS presupposes is consolidating on vendor-neutral governance. No changes to the ten principles.
 
 ---
 
