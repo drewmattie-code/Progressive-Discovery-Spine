@@ -6,7 +6,7 @@
 
 [![License: CC BY 4.0](https://img.shields.io/badge/spec-CC_BY_4.0-blue?style=flat-square)](LICENSE-CC-BY-4.0)
 [![License: MIT](https://img.shields.io/badge/code-MIT-green?style=flat-square)](LICENSE-MIT)
-[![Status: v1.2](https://img.shields.io/badge/status-v1.2-0F766E?style=flat-square)](SPEC.md)
+[![Status: v1.3](https://img.shields.io/badge/status-v1.3-0F766E?style=flat-square)](SPEC.md)
 [![spec checks](https://github.com/drewmattie-code/Progressive-Discovery-Spine/actions/workflows/spec-checks.yml/badge.svg)](https://github.com/drewmattie-code/Progressive-Discovery-Spine/actions/workflows/spec-checks.yml)
 [![Claude Skill](https://img.shields.io/badge/claude--skill-available-7C3AED?style=flat-square)](dist/skills/pds/SKILL.md)
 

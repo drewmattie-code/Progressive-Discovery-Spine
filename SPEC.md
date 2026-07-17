@@ -1,9 +1,49 @@
 # Progressive Discovery Spine: Specification
 
-> **Status:** v1.2 · Drew Mattie · 2026-06-08
+> **Status:** v1.3 · Drew Mattie · 2026-07-17
 > **License:** [CC BY 4.0](LICENSE-CC-BY-4.0)
 
 This is the full technical specification for the Progressive Discovery Spine pattern. The [README](README.md) is the elevator pitch; this document is the build reference.
+
+---
+
+## Conformance
+
+The key words MUST, MUST NOT, SHOULD, SHOULD NOT, and MAY in this document are to be interpreted as described in BCP 14 ([RFC 2119](https://www.rfc-editor.org/rfc/rfc2119), [RFC 8174](https://www.rfc-editor.org/rfc/rfc8174)) when, and only when, they appear in all capitals.
+
+This specification separates three tiers of guidance, and only the first confers conformance:
+
+1. **Required behaviour** — the numbered requirements below (PDS-R1 …). An implementation is PDS-conformant when it satisfies every MUST-level requirement.
+2. **Recommended implementation** — the patterns the principle discussions describe (SHOULD level). Departures are legitimate with documented rationale.
+3. **Illustrative technology** — named products and projects throughout this document (pgvector, MCP gateways, commercial tool platforms) are examples only. Deploying a named component does not by itself make a layer conformant, and no requirement below depends on any specific vendor.
+
+### Normative requirements
+
+| ID | Requirement |
+|---|---|
+| PDS-R1 | Tools exposed to agents MUST be semantic business-entity operations; raw tables, raw SQL surfaces, and backend field names MUST NOT be exposed as the agent tool surface. |
+| PDS-R2 | Tool catalogs MUST be workflow-scoped: a session MUST receive only the tools relevant to its task (target 5–8), never the full catalog by default. |
+| PDS-R3 | A discovery entry point (tool search) MUST be the default route by which an agent acquires tools; static full-catalog context injection MUST NOT be the default. |
+| PDS-R4 | Tool inputs and outputs MUST validate against a declared, versioned schema at the gateway boundary. |
+| PDS-R5 | Every routed call MUST pass through the gateway; agents MUST NOT hold direct backend credentials or reach connectors around the gateway. |
+| PDS-R6 | Cached results MUST carry freshness metadata distinguishable by the consumer from live reads. |
+| PDS-R7 | Catalogs MUST be tenant-scoped, and entitlement filtering MUST be applied before or during retrieval: a model MUST NOT receive the name, description, or schema of any tool its principal is not entitled to use. |
+| PDS-R8 | Tool descriptions MUST declare failure modes and read-only versus state-changing character. |
+| PDS-R9 | State-changing operations MUST be structurally distinguishable from read-only operations in the tool contract. |
+| PDS-R10 | The retrieval interface MUST be implementation-abstract — capable of semantic similarity, lexical matching, and metadata/entitlement filtering — and any store satisfying that interface MAY be used (pgvector is illustrative, not required). |
+| PDS-R11 | Connectors and tools MUST move through the promotion lifecycle below before production exposure, and their lifecycle state MUST be recorded in the estate's system of record. |
+
+### Connector promotion lifecycle (normative)
+
+A connector, tool manifest, or tool version MUST NOT be reachable by production agents until it has passed an explicit promotion pipeline:
+
+```
+quarantine → security scan → schema validation → sandbox test → read-only pilot → production-approved
+```
+
+- **Revoked** MUST be reachable from every state, and revocation MUST propagate to discovery within the estate's declared freshness budget.
+- Each transition MUST be performed by an authorized human or approved automation — the content of any prompt MUST NOT influence a promotion state.
+- The current state of every connector MUST be queryable from the registry layer (ARS), and discovery (this spec) MUST filter to `production-approved` for production sessions, `read-only pilot` and above for pilot sessions.
 
 ---
 
@@ -371,6 +411,7 @@ This specification follows semantic versioning. Breaking changes to the conceptu
 - **v1.0**: initial public release (2026-05-24)
 - **v1.1** (2026-06-02): added industry-convergence and productization citations (Anthropic Knowledge Work Plugins, Claude-Mem, Nango, Microsoft Agent Governance Toolkit, the MCP server registry, Composio, MuleSoft Agent Fabric, UiPath) and the harness-engineering convergence (SWE-agent ACI, OpenAI Harness Engineering, Garry Tan skill packs) that independently named progressive disclosure as Pattern #1; added the nine-spec Spine catalog cross-reference (introducing DCS, GDS, ARS, and SRS as siblings) and the ten-way failure-attribution dictionary. No changes to the ten principles.
 - **v1.2** (2026-06-08): added the goose and Agentic AI Foundation convergence citation to the README industry-context section. goose (the MCP-native open-source runtime), MCP, and AGENTS.md were brought under the Linux Foundation's new Agentic AI Foundation, a foundation-level signal that the discoverable surface PDS presupposes is consolidating on vendor-neutral governance. No changes to the ten principles.
+- **v1.3** (2026-07-17): added the Conformance section — BCP 14 keywords, the required / recommended / illustrative three-tier separation, numbered normative requirements PDS-R1–R11 (making the retrieval-interface abstraction and the entitlement-filtering-before-retrieval order explicitly normative), and the connector promotion lifecycle (quarantine → security scan → schema validation → sandbox test → read-only pilot → production-approved, with revocation reachable from every state). Prompted in part by an external CIO architecture review (2026-07-17). No changes to the ten principles.
 
 ---
 
