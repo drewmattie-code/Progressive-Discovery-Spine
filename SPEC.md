@@ -1,6 +1,6 @@
 # Progressive Discovery Spine: Specification
 
-> **Status:** v1.1 · Drew Mattie · 2026-06-02
+> **Status:** v1.2 · Drew Mattie · 2026-06-08
 > **License:** [CC BY 4.0](LICENSE-CC-BY-4.0)
 
 This is the full technical specification for the Progressive Discovery Spine pattern. The [README](README.md) is the elevator pitch; this document is the build reference.

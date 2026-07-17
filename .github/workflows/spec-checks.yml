@@ -1,0 +1,35 @@
+name: spec-checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run the runnable example
+        run: python examples/discover.py
+      - name: Validate JSON Schemas
+        run: |
+          pip install --quiet jsonschema
+          python - << 'PY'
+          import json, pathlib, sys
+          from jsonschema import validators
+          failed = False
+          schemas = sorted(pathlib.Path("schema").glob("*.json")) if pathlib.Path("schema").is_dir() else []
+          jsons = sorted(pathlib.Path("examples").glob("*.json"))
+          for p in schemas:
+              s = json.load(open(p))
+              validators.validator_for(s).check_schema(s)
+              print(f"schema ok: {p}")
+          for p in jsons:
+              json.load(open(p))
+              print(f"json ok: {p}")
+          if not schemas and not jsons:
+              print("no schema/ or example json files found"); failed = True
+          sys.exit(1 if failed else 0)
+          PY
