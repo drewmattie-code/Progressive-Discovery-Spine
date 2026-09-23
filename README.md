@@ -254,7 +254,7 @@ PDS is built in sequence, skeleton through to first production reference deploym
 | 7 | First end-to-end production reference deployment |
 | 8 | Spec / one-pager / case study |
 
-See [SPEC.md](SPEC.md#build-sequence) for details.
+See [SPEC.md](SPEC.md#5-build-sequence) for details.
 
 ## Who this is for
 
